@@ -21,11 +21,6 @@ const ProfilUserScreen = () => {
       <View style={styles.inputContainer}>
         <View>{/*photo*/}</View>
         <View style={styles.inpuntBlock}>
-          <TextInput 
-          style={styles.input} 
-          placeholder="Type" 
-          
-          />
           {/*photo*/}
           <TextInput style={styles.input} placeholder="Nom" />
           <TextInput style={styles.input} placeholder="Prénom :" />
@@ -34,7 +29,7 @@ const ProfilUserScreen = () => {
         </View>
       </View>
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>S'enregistrer</Text>
+        <Text style={styles.buttonText}>Suivant</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
