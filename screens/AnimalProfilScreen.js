@@ -5,7 +5,6 @@ import {
   View,
   Text,
   TextInput,
-  ScrollView,
   KeyboardAvoidingView,
   TouchableOpacity,
   StyleSheet,
@@ -38,7 +37,10 @@ const AnimalProfilScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <Text style={styles.title}>Entrer le profil de votre animal</Text>
       <View style={styles.inputContainer}>
         <View>{/*photo*/}</View>
@@ -246,7 +248,7 @@ const AnimalProfilScreen = () => {
           </TouchableOpacity>
         </View>
       </Modal>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
