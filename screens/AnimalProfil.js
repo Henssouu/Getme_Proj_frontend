@@ -11,7 +11,7 @@ import {
   Modal,
 } from "react-native";
 
-const ProfilUserScreen = () => {
+const AnimalProfil = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -27,10 +27,16 @@ const ProfilUserScreen = () => {
           
           />
           {/*photo*/}
-          <TextInput style={styles.input} placeholder="Nom" />
-          <TextInput style={styles.input} placeholder="Prénom :" />
-          <TextInput style={styles.input} placeholder="Adresse" /> 
-          <TextInput style={styles.input} placeholder="Avez-vous un animal ?" />
+          <TextInput style={styles.input} placeholder="Nom :" />
+          <TextInput style={styles.input} placeholder="Taille :" />
+          <TextInput style={styles.input} placeholder="Date de naissance" />
+          <TextInput style={styles.input} placeholder="couleur :" />
+          <TextInput style={styles.input} placeholder="Poil :" />
+          <TextInput style={styles.input} placeholder="Sex :" />
+          <TextInput style={styles.input} placeholder="castré :" />
+          <TextInput style={styles.input} placeholder="Tatouage :" />
+          <TextInput style={styles.input} placeholder="Puce :" />
+          <TextInput style={styles.input} placeholder="Description :" />
         </View>
       </View>
       <TouchableOpacity style={styles.button}>
@@ -84,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfilUserScreen;
+export default AnimalProfil;

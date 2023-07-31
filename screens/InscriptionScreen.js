@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from '@react-navigation/native';
 import {
   Image,
   ImageBackground,
@@ -12,6 +13,13 @@ import {
 } from "react-native";
 
 const InscriptionScreen = () => {
+  const navigation = useNavigation();
+
+  const handleProfil = () => {
+    navigation.navigate('ProfilUserScreen');
+  }
+
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -19,7 +27,7 @@ const InscriptionScreen = () => {
     >
       <Text style={styles.title}>Saisir vos informations</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="Nom d'utilisateur" />
+        <TextInput style={styles.input} placeholder="Pseudo" />
         <TextInput style={styles.input} placeholder="Adresse email" />
         <TextInput
           style={styles.input}
@@ -27,11 +35,10 @@ const InscriptionScreen = () => {
           secureTextEntry={true}
         />
         <TextInput style={styles.input} placeholder="Date de naissance" />
-        <TextInput style={styles.input} placeholder="Adresse" />
-        <TextInput style={styles.input} placeholder="Avez-vous un animal ?" />
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleProfil}>
         <Text style={styles.buttonText}>S'enregistrer</Text>
+        
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
