@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+
+
 import {
   View,
   Text,
@@ -35,7 +37,7 @@ function SignInScreen() {
 
   const handleSignIn = () => {
 
-    fetch('http://10.20.2.195:3000/users/signin', {
+    fetch(`http://10.20.2.176:3000/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: signInEmail, password: signInPassword}),
@@ -45,11 +47,11 @@ function SignInScreen() {
           dispatch(login({email: signInEmail, token: data.token}));
           setSignInEmail('');
           setSignInPassword('');
-          
+          navigation.navigate('HomeScreen');
+          setIsModalOpenSignIn(false);
+     
         }
-        navigation.navigate('HomeScreen');
-        setIsModalOpenSignIn(false);
-        
+     
      
       });
 

@@ -26,7 +26,7 @@ function InscriptionScreen()  {
 
   //Gère la navigation vers un autre screen au click
   const handleProfil = () => {
-    fetch('http://10.20.2.195:3000/users/signup', {
+    fetch('http://10.20.2.176:3000/users/signup', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email: signUpEmail, password: signUpPassword, birthday: signUpBirthday }),
@@ -37,11 +37,12 @@ function InscriptionScreen()  {
           setSignUpEmail('');
 					setSignUpPassword('');
 					setSignUpBirthday('');
-          
+          navigation.navigate('ProfilUserScreen');
 					
+       
 				}
-        navigation.navigate('ProfilUserScreen');
-   
+        
+
         
 			});
 	};
