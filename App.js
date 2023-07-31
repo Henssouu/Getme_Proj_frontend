@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignInScreen from './screens/SignInScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProfilUserScreen from './screens/ProfilUserScreen';
-import AnimalProfilScreen from './screens/AnimalProfil';
+import AnimalProfilScreen from './screens/AnimalProfilScreen';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user'
