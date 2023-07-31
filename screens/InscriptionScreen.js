@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import {
   Image,
@@ -11,14 +11,43 @@ import {
   StyleSheet,
   Modal,
 } from "react-native";
+import ProfilUserScreen from "../screens/ProfilUserScreen";
+import login from "../reducers/user";
+import { useDispatch } from 'react-redux';
 
-const InscriptionScreen = () => {
+function InscriptionScreen()  {
+
+  const dispatch = useDispatch();
+  const [signUpEmail, setSignUpEmail] = useState('');
+  const [signUpPassword, setSignUpPassword] = useState('');
+  const [signUpBirthday, setSignUpBirthday] = useState('');
+
   const navigation = useNavigation();
 
   //Gère la navigation vers un autre screen au click
   const handleProfil = () => {
-    navigation.navigate('ProfilUserScreen');
-  }
+    fetch('http://10.20.2.176:3000/users/signup', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email: signUpEmail, password: signUpPassword, birthday: signUpBirthday }),
+		}).then(response => response.json())
+			.then(data => {
+				if (data.result) {
+					dispatch(login({ email: signUpEmail, birthday: signUpBirthday, token: data.token }));
+          setSignUpEmail('');
+					setSignUpPassword('');
+					setSignUpBirthday('');
+          
+					
+				}
+        navigation.navigate('ProfilUserScreen');
+   
+        
+			});
+	};
+
+   
+  
 
 
   return (
@@ -28,14 +57,13 @@ const InscriptionScreen = () => {
     >
       <Text style={styles.title}>Saisir vos informations</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="Pseudo" />
-        <TextInput style={styles.input} placeholder="Adresse email" />
+        <TextInput style={styles.input} placeholder="Adresse email"  onChangeText={(value) => setSignUpEmail(value)} value={signUpEmail} />
         <TextInput
           style={styles.input}
           placeholder="Mot de passe"
           secureTextEntry={true}
-        />
-        <TextInput style={styles.input} placeholder="Date de naissance" />
+          onChangeText={(value) => setSignUpPassword(value)} value={signUpPassword} />
+        <TextInput style={styles.input} placeholder="Date de naissance" onChangeText={(value) => setSignUpBirthday(value)} value={signUpBirthday} />
       </View>
       {/* active la fonction handleProfil au click */}
       <TouchableOpacity style={styles.button} onPress={handleProfil}>
