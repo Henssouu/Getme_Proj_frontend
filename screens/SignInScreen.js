@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 import {
   View,
   Text,
@@ -11,14 +12,18 @@ import {
   Image
 } from "react-native";
 import InscriptionScreen from "../screens/InscriptionScreen";
-import HomeScreen from "./HomeScreen";
+import HomeScreen from "../screens/HomeScreen";
+import login from "../reducers/user";
 
-const SignInScreen = () => {
-  const navigation = useNavigation(); 
+
+function SignInScreen() {
+
+  const dispatch = useDispatch();
   const [isSignUpModalVisible, setSignUpModalVisible] = useState(false);
-  const [userInput, setUserInput] = useState('');
-  const [password, setPassword] = useState('');
-//   const [email, setEmail] = useState('');
+  const [signInEmail, setSignInEmail] = useState('');
+  const [signInPassword, setSignInPassword] = useState('');
+  const navigation = useNavigation(); 
+
 
   const handleSignUp = () => {
     setSignUpModalVisible(true);
@@ -29,15 +34,25 @@ const SignInScreen = () => {
   };
 
   const handleSignIn = () => {
-    const validUsername = 'dazmo';
-    const validEmail = 'dazmo@gmail.com';
-    const validPassword = '123';
-    //mécanique de login 
-    if((userInput === validUsername || userInput === validEmail) && password === validPassword) {
+
+    fetch('http://10.20.2.176:3000/users/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: signInEmail, password: signInPassword}),
+    }).then(response => response.json())
+      .then(data => {
+        if (data.result) {
+          dispatch(login({email: signInEmail, token: data.token}));
+          setSignInEmail('');
+          setSignInPassword('');
+          
+        }
         navigation.navigate('HomeScreen');
-    } else {
-        console.log('Informations incorrect');
-    }
+        setIsModalOpenSignIn(false);
+        
+     
+      });
+
   }
 
   const colors = ["red", "yellow", "blue", "black"];
@@ -55,12 +70,11 @@ const SignInScreen = () => {
         </View>
         <TextInput
           style={styles.input}
-          placeholder="Nom d'utilisateur ou email"
+          placeholder="Email"
           placeholderTextColor="#FFF"
-        //   récupère la value depuis le state
-          value={userInput}
-        //   met à jour l'état au changement de text  
-          onChangeText={setUserInput}  
+        //   récupèration de l'email renseigné dans le TextInput pour le sotcker dans le state signInEmail
+        onChangeText={(value) => setSignInEmail(value)} value={signInEmail}
+   
         />
         <TextInput
           style={styles.input}
@@ -68,9 +82,7 @@ const SignInScreen = () => {
           placeholderTextColor="#FFF"
           secureTextEntry={true}
           //   récupère la value depuis le state
-          value={password}
-        //   met à jour l'état au changement de text 
-          onChangeText={setPassword}
+          onChangeText={(value) => setSignInPassword(value)} value={signInPassword}
         />
         <TouchableOpacity style={styles.button} onPress={handleSignIn}>
           <Text style={styles.buttonText}>Sign In</Text>
