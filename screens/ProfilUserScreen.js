@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
-  Image,
-  ImageBackground,
   View,
   Text,
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
   StyleSheet,
-  Modal,
 } from "react-native";
 
+
 const ProfilUserScreen = () => {
+  const navigation = useNavigation();
+  const [hasAnimal, setHasAnimal] = useState(false);
+
+  //condition pour passer du screen "AnimalProfil" ou "HomeScreen"
+  const switchToAnimal = () => {
+    if (hasAnimal) {
+      navigation.navigate("AnimalProfilScreen");
+    } else {
+      navigation.navigate("HomeScreen");
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -20,15 +31,41 @@ const ProfilUserScreen = () => {
       <Text style={styles.title}>Compléter votre profil</Text>
       <View style={styles.inputContainer}>
         <View>{/*photo*/}</View>
-        <View style={styles.inpuntBlock}>
+        <View style={styles.inputBlock}>
           {/*photo*/}
           <TextInput style={styles.input} placeholder="Nom" />
           <TextInput style={styles.input} placeholder="Prénom :" />
           <TextInput style={styles.input} placeholder="Adresse" /> 
-          <TextInput style={styles.input} placeholder="Avez-vous un animal ?" />
+          <View style={styles.hasAnimalContainer}>
+            <Text style={styles.hasAnimalText}>Avez-vous un animal ?</Text>
+
+            {/* condition pour passer du screen "AnimalProfil" ou "HomeScreen" après un choix "oui" ou "non" */}
+
+            <TouchableOpacity
+              style={[
+                styles.hasAnimalButton,
+                hasAnimal ? styles.activeButton : null,
+              ]}
+              onPress={() => setHasAnimal(true)}
+            >
+              <Text>Oui</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.hasAnimalButton,
+                !hasAnimal ? styles.activeButton : null,
+              ]}
+              onPress={() => setHasAnimal(false)}
+            >
+              <Text>Non</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-      <TouchableOpacity style={styles.button}>
+
+      {/* selon le résultat de la condition, la navigation se fera au click */}
+      
+      <TouchableOpacity style={styles.button} onPress={switchToAnimal}>
         <Text style={styles.buttonText}>Suivant</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
@@ -66,6 +103,27 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 10,
   },
+  inputBlock: {
+    marginBottom: 20,
+  },
+  hasAnimalContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  hasAnimalText: {
+    marginRight: 10,
+  },
+  hasAnimalButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+    borderColor: "#ccc",
+    borderWidth: 1,
+  },
+  activeButton: {
+    backgroundColor: "lightblue",
+  },
   button: {
     backgroundColor: "blue",
     paddingVertical: 12,
@@ -80,3 +138,8 @@ const styles = StyleSheet.create({
 });
 
 export default ProfilUserScreen;
+
+
+
+
+

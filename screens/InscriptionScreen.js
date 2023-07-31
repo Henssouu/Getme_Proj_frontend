@@ -15,6 +15,7 @@ import {
 const InscriptionScreen = () => {
   const navigation = useNavigation();
 
+  //Gère la navigation vers un autre screen au click
   const handleProfil = () => {
     navigation.navigate('ProfilUserScreen');
   }
@@ -36,6 +37,7 @@ const InscriptionScreen = () => {
         />
         <TextInput style={styles.input} placeholder="Date de naissance" />
       </View>
+      {/* active la fonction handleProfil au click */}
       <TouchableOpacity style={styles.button} onPress={handleProfil}>
         <Text style={styles.buttonText}>S'enregistrer</Text>
         
