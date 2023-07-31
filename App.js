@@ -5,11 +5,19 @@ import SignInScreen from './screens/SignInScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProfilUserScreen from './screens/ProfilUserScreen';
 import AnimalProfil from './screens/AnimalProfil';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import user from './reducers/user'
+
+const store = configureStore({
+ reducer: {user},
+});
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
@@ -18,6 +26,7 @@ const App = () => {
         <Stack.Screen name="AnimalProfil" component={AnimalProfil} options={{  headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 };
 
