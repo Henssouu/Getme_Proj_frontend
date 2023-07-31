@@ -6,7 +6,7 @@ import { faHouse, faMap, faEnvelope, faPaw, faPlus, faRightFromBracket } from '@
 const HomeScreen = () => {
 
   const handleLogout = () => {
-    // logout logic
+    // logout mécanique
   }
 
   return (
@@ -14,7 +14,7 @@ const HomeScreen = () => {
       <Text style={styles.title}>La communauté vous souhaite la bienvenue</Text>
       {/* timeline/feed component */}
       
-      {/* Bottom icons */}
+      {/* Icones du bas */}
       <View style={styles.bottomBar}>
         <FontAwesomeIcon icon={faHouse} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faMap} size={25} style={styles.icon} />

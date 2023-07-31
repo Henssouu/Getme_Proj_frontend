@@ -32,11 +32,11 @@ const SignInScreen = () => {
     const validUsername = 'dazmo';
     const validEmail = 'dazmo@gmail.com';
     const validPassword = '123';
-
+    //mécanique de login 
     if((userInput === validUsername || userInput === validEmail) && password === validPassword) {
         navigation.navigate('HomeScreen');
     } else {
-        console.log('Invalid credentials');
+        console.log('Informations incorrect');
     }
   }
 
@@ -49,7 +49,7 @@ const SignInScreen = () => {
         <View style={styles.header}>
         <View style={styles.headerTextWrapper}>
           <Text style={[styles.firstTitle, { color: randomColor }]}>GET ME</Text>
-          <View style={styles.space} />
+          {/* <View style={styles.space} /> */}
         <Text style={[styles.title, { color: randomColor, marginTop: 20 }]}>Connexion</Text>
         </View>
         </View>
@@ -76,14 +76,14 @@ const SignInScreen = () => {
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
 
-        {/* Sign Up Button */}
+        {/* SignUp Btn */}
         <TouchableOpacity style={styles.signUpButtonContainer}>
           <Text style={styles.signUpButtonText} onPress={handleSignUp}>
             Sign Up
           </Text>
         </TouchableOpacity>
 
-        {/* Sign Up Modal */}
+        {/* SignUp Modal */}
         <Modal visible={isSignUpModalVisible} animationType="slide" onRequestClose={handleSignUpClose}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Inscription</Text>
@@ -118,6 +118,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
+    flex: 1,
+    // width: "100%",
     position: "absolute",
     top: 0,
     left: 0,
@@ -133,18 +135,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   firstTitle: {
+    flex: 1,
     fontSize: 26,
     fontWeight: "bold",
     color: "#FFF",
     marginTop:20,
   },
   title: {
+    flex: 1,
     fontSize: 24,
     fontWeight: "bold",
+    // marginLeft: 'auto',
   },
-  space: {
-    width: 400, 
-  },
+  // // space: {
+  // //   width: '100%', 
+  // },
   input: {
     width: "100%",
     height: 40,
