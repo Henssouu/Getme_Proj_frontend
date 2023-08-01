@@ -51,14 +51,14 @@ function InscriptionScreen(props)  {
           setEmailError(true);
         }
         
-
-        
 			});
-	};
 
-   
-  
-
+      
+    };
+    
+    const tswitch = () => {
+      navigation.navigate('ProfilUserScreen');
+    }
 
   return (
     <KeyboardAvoidingView
@@ -82,6 +82,13 @@ function InscriptionScreen(props)  {
         <Text style={styles.buttonText}>S'enregistrer</Text>
         
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={tswitch}>
+        <Text style={styles.buttonText}>S'enregistrer</Text>
+        
+      </TouchableOpacity>
+
+
     </KeyboardAvoidingView>
   );
 };

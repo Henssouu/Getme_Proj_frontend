@@ -11,6 +11,10 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      {/* <View style={styles.header}>
+        <Text style={styles.espaceProfil}> container </Text>
+      </View> */}
+
       <Text style={styles.title}>La communauté vous souhaite la bienvenue</Text>
       {/* timeline/feed component */}
       
@@ -75,6 +79,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 10,
   },
+  espaceProfil: {
+    // height: "60%",
+    // width: "100%",
+  },
+  header: {
+    // flex: 1,
+    // marginTop: 20,
+    // width: "90%",
+    // height: "60%",
+    // borderColor: "#ccc",
+    // borderWidth: 1,
+    // borderRadius: 5,
+
+  }
 });
 
 export default HomeScreen;
