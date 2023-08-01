@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+
+
 import {
   View,
   Text,
@@ -13,7 +15,7 @@ import {
 } from "react-native";
 import InscriptionScreen from "../screens/InscriptionScreen";
 import HomeScreen from "../screens/HomeScreen";
-import login from "../reducers/user";
+import {login} from "../reducers/user";
 
 
 function SignInScreen() {
@@ -32,6 +34,7 @@ function SignInScreen() {
     setSignUpModalVisible(false);
   };
 
+
   const handleSignIn = () => {
 
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signin`, {
@@ -44,10 +47,11 @@ function SignInScreen() {
           dispatch(login({email: signInEmail, token: data.token}));
           setSignInEmail('');
           setSignInPassword('');
-          
+          navigation.navigate('HomeScreen');
+         
+     
         }
-        navigation.navigate('HomeScreen');
-        
+     
      
       });
 
@@ -97,7 +101,7 @@ function SignInScreen() {
         <Modal visible={isSignUpModalVisible} animationType="slide" onRequestClose={handleSignUpClose}>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Inscription</Text>
-            {<InscriptionScreen />}
+            {<InscriptionScreen closeParentModal={handleSignUpClose} />}
             <TouchableOpacity style={styles.modalCloseButton} onPress={handleSignUpClose}>
               <Text style={styles.modalCloseButtonText}>Close</Text>
             </TouchableOpacity>

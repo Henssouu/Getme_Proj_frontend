@@ -15,6 +15,7 @@ const initialState = {
       logout: (state) => {
         state.value.token = '';
         state.value.email = null;
+   
       },
     },
   });

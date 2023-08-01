@@ -10,12 +10,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user'
 
 const store = configureStore({
- reducer: {user},
+ reducer: { user },
 });
 
 const Stack = createStackNavigator();
 
-const App = () => {
+function App()  {
   return (
     <Provider store={store}>
     <NavigationContainer>
