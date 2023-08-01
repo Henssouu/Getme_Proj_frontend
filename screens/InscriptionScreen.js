@@ -12,7 +12,7 @@ import {
   Modal,
 } from "react-native";
 import ProfilUserScreen from "../screens/ProfilUserScreen";
-import login from "../reducers/user";
+import { login } from "../reducers/user";
 import { useDispatch } from 'react-redux';
 
 function InscriptionScreen()  {
@@ -26,21 +26,21 @@ function InscriptionScreen()  {
 
   //Gère la navigation vers un autre screen au click
   const handleProfil = () => {
-    fetch('http://10.20.2.195:3000/users/signup', {
+    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signup`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email: signUpEmail, password: signUpPassword, birthday: signUpBirthday }),
 		}).then(response => response.json())
 			.then(data => {
 				if (data.result) {
-					dispatch(login({ email: signUpEmail, birthday: signUpBirthday, token: data.token }));
+					dispatch(login({ email: signUpEmail, token: data.token }));
           setSignUpEmail('');
 					setSignUpPassword('');
 					setSignUpBirthday('');
           
 					
+          navigation.navigate('ProfilUserScreen');
 				}
-        navigation.navigate('ProfilUserScreen');
    
         
 			});

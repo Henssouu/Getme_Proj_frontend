@@ -17,7 +17,6 @@ import login from "../reducers/user";
 
 
 function SignInScreen() {
-
   const dispatch = useDispatch();
   const [isSignUpModalVisible, setSignUpModalVisible] = useState(false);
   const [signInEmail, setSignInEmail] = useState('');
@@ -35,7 +34,7 @@ function SignInScreen() {
 
   const handleSignIn = () => {
 
-    fetch('http://10.20.2.195:3000/users/signin', {
+    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: signInEmail, password: signInPassword}),
@@ -48,7 +47,6 @@ function SignInScreen() {
           
         }
         navigation.navigate('HomeScreen');
-        setIsModalOpenSignIn(false);
         
      
       });
