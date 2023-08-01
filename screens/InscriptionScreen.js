@@ -12,7 +12,7 @@ import {
   Modal,
 } from "react-native";
 import ProfilUserScreen from "../screens/ProfilUserScreen";
-import { login }  from "../reducers/user";
+import { login } from "../reducers/user";
 import { useDispatch } from 'react-redux';
 
 function InscriptionScreen(props)  {

@@ -19,7 +19,6 @@ import {login} from "../reducers/user";
 
 
 function SignInScreen() {
-
   const dispatch = useDispatch();
   const [isSignUpModalVisible, setSignUpModalVisible] = useState(false);
   const [signInEmail, setSignInEmail] = useState('');
