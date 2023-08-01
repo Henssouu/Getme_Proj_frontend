@@ -13,6 +13,10 @@ import {
 const ProfilUserScreen = () => {
   const navigation = useNavigation();
   const [hasAnimal, setHasAnimal] = useState(false);
+  const [nomUser, setNomUser] = '';
+  const [prenomUser, setPrenomUser] = '';
+  const [pseudo, setPseudo] = '';
+  const [adresse, setAdresse] = '';
 
   //condition pour passer du screen "AnimalProfil" ou "HomeScreen"
   const switchToAnimal = () => {
@@ -33,9 +37,10 @@ const ProfilUserScreen = () => {
         <View>{/*photo*/}</View>
         <View style={styles.inputBlock}>
           {/*photo*/}
-          <TextInput style={styles.input} placeholder="Nom" />
-          <TextInput style={styles.input} placeholder="Prénom :" />
-          <TextInput style={styles.input} placeholder="Adresse" /> 
+          <TextInput style={styles.input}  onChangeText={(value) => setNomUser(value)} value={nomUser} placeholder="Nom" />
+          <TextInput style={styles.input} onChangeText={(value) => setPrenomUser(value)} value={prenomUser} placeholder="Prénom :" />
+          <TextInput style={styles.input} onChangeText={(value) => setPseudo(value)} value={pseudo} placeholder="Pseudo :" />
+          <TextInput style={styles.input} onChangeText={(value) => setAdresse(value)} value={adresse} placeholder="Adresse" /> 
           <View style={styles.hasAnimalContainer}>
             <Text style={styles.hasAnimalText}>Avez-vous un animal ?</Text>
 
