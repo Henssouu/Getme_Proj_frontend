@@ -8,24 +8,45 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { useSelector, useDispatch } from 'react-redux';
+import  { profil } from "../reducers/user";
 
 
 const ProfilUserScreen = () => {
+
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [hasAnimal, setHasAnimal] = useState(false);
-  const [nomUser, setNomUser] = '';
-  const [prenomUser, setPrenomUser] = '';
-  const [pseudo, setPseudo] = '';
-  const [adresse, setAdresse] = '';
+  const [nomUser, setNomUser] = useState('');
+  const [prenomUser, setPrenomUser] = useState('');
+  const [pseudo, setPseudo] = useState('');
+  const [adresse, setAdresse] = useState('');
 
+  const user = useSelector((state) => state.user.value);
   //condition pour passer du screen "AnimalProfil" ou "HomeScreen"
   const switchToAnimal = () => {
+
+    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/${user.token}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse }),
+		}).then(response => response.json())
+			.then(data => {
+        if (data.result) {
+          dispatch(profil({nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse}));
+          setNomUser('');
+          setPrenomUser('');
+          setPseudo('');
+          setAdresse('');
+         }
+
     if (hasAnimal) {
       navigation.navigate("AnimalProfilScreen");
     } else {
       navigation.navigate("HomeScreen");
     }
-  };
+  })
+}
 
   return (
     <KeyboardAvoidingView
