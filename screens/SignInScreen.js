@@ -19,10 +19,13 @@ import {login} from "../reducers/user";
 
 
 function SignInScreen() {
+
+ 
   const dispatch = useDispatch();
   const [isSignUpModalVisible, setSignUpModalVisible] = useState(false);
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
+  const [userError, setUserError] = useState(false);
   const navigation = useNavigation(); 
 
 
@@ -50,6 +53,10 @@ function SignInScreen() {
           navigation.navigate('HomeScreen');
          
      
+        } else {
+  
+          setUserError(true);
+          
         }
      
      
@@ -86,6 +93,8 @@ function SignInScreen() {
           //   récupère la value depuis le state
           onChangeText={(value) => setSignInPassword(value)} value={signInPassword}
         />
+
+        {userError && <Text style={styles.error}>Adresse email ou mot de passe incorrect</Text> }
         <TouchableOpacity style={styles.button} onPress={handleSignIn}>
           <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
@@ -239,6 +248,11 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 12,
     fontWeight: "bold",
+  },
+  error: {
+    marginTop: 5,
+    marginBottom: 5,
+    color: 'red',
   },
 });
 
