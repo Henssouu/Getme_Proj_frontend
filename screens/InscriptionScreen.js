@@ -18,9 +18,12 @@ import { useDispatch } from 'react-redux';
 function InscriptionScreen(props)  {
 
   const dispatch = useDispatch();
+  const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const [signUpEmail, setSignUpEmail] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
   const [signUpBirthday, setSignUpBirthday] = useState('');
+  const [emailError, setEmailError] = useState(false);
 
 
   const navigation = useNavigation();
@@ -35,7 +38,7 @@ function InscriptionScreen(props)  {
 			body: JSON.stringify({ email: signUpEmail, password: signUpPassword, birthday: signUpBirthday }),
 		}).then(response => response.json())
 			.then(data => {
-				if (data.result) {
+				if (data.result && EMAIL_REGEX.test(signUpEmail)) {
           dispatch(login({ email: signUpEmail, birthday: signUpBirthday, token: data.token }));
           setSignUpEmail('');
 					setSignUpPassword('');
@@ -43,7 +46,9 @@ function InscriptionScreen(props)  {
           props.closeParentModal()  // Inverse data flow;
           navigation.navigate('ProfilUserScreen');		
          
-				}
+				} else {
+          setEmailError(true);
+        }
         
 
         
@@ -69,6 +74,8 @@ function InscriptionScreen(props)  {
           onChangeText={(value) => setSignUpPassword(value)} value={signUpPassword} />
         <TextInput style={styles.input} placeholder="Date de naissance" onChangeText={(value) => setSignUpBirthday(value)} value={signUpBirthday} />
       </View>
+
+      {emailError && <Text style={styles.error}>Adresse email incorrect</Text> }
       {/* active la fonction handleProfil au click */}
       <TouchableOpacity style={styles.button} onPress={handleProfil}>
         <Text style={styles.buttonText}>S'enregistrer</Text>
@@ -120,6 +127,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  error: {
+    marginTop: 5,
+    marginBottom: 5,
+    color: 'red',
   },
 });
 
