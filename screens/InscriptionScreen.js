@@ -12,34 +12,37 @@ import {
   Modal,
 } from "react-native";
 import ProfilUserScreen from "../screens/ProfilUserScreen";
-import login from "../reducers/user";
+import { login }  from "../reducers/user";
 import { useDispatch } from 'react-redux';
 
-function InscriptionScreen()  {
+function InscriptionScreen(props)  {
 
   const dispatch = useDispatch();
   const [signUpEmail, setSignUpEmail] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
   const [signUpBirthday, setSignUpBirthday] = useState('');
 
+
   const navigation = useNavigation();
+
+
 
   //Gère la navigation vers un autre screen au click
   const handleProfil = () => {
-    fetch('http://10.20.2.176:3000/users/signup', {
+    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signup`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email: signUpEmail, password: signUpPassword, birthday: signUpBirthday }),
 		}).then(response => response.json())
 			.then(data => {
 				if (data.result) {
-					dispatch(login({ email: signUpEmail, birthday: signUpBirthday, token: data.token }));
+          dispatch(login({ email: signUpEmail, birthday: signUpBirthday, token: data.token }));
           setSignUpEmail('');
 					setSignUpPassword('');
 					setSignUpBirthday('');
-          navigation.navigate('ProfilUserScreen');
-					
-       
+          props.closeParentModal()  // Inverse data flow;
+          navigation.navigate('ProfilUserScreen');		
+         
 				}
         
 
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    minWidth: 500,
+    minWidth: "100%",
     height: 40,
     borderColor: "#ccc",
     borderWidth: 1,
