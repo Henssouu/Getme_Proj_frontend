@@ -8,7 +8,7 @@ const ProfilUserInfoScreen = () => {
 
   useEffect(() => {
     if (userToken) {
-      fetch(`http://your-backend-url/users/${userToken}`, {
+      fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/${user.token}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
