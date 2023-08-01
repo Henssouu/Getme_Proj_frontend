@@ -55,10 +55,6 @@ function InscriptionScreen(props)  {
 
       
     };
-    
-    const tswitch = () => {
-      navigation.navigate('ProfilUserScreen');
-    }
 
   return (
     <KeyboardAvoidingView
@@ -79,16 +75,8 @@ function InscriptionScreen(props)  {
       {emailError && <Text style={styles.error}>Adresse email incorrect</Text> }
       {/* active la fonction handleProfil au click */}
       <TouchableOpacity style={styles.button} onPress={handleProfil}>
-        <Text style={styles.buttonText}>S'enregistrer</Text>
-        
+        <Text style={styles.buttonText}>S'enregistrer</Text>       
       </TouchableOpacity>
-
-      <TouchableOpacity style={styles.button} onPress={tswitch}>
-        <Text style={styles.buttonText}>S'enregistrer</Text>
-        
-      </TouchableOpacity>
-
-
     </KeyboardAvoidingView>
   );
 };
