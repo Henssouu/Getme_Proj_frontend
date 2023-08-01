@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHouse, faMap, faEnvelope, faPaw, faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import ProfilUserInfoScreen from './ProfilUserInfoScreen';
 
 const HomeScreen = () => {
 
@@ -16,7 +17,7 @@ const HomeScreen = () => {
       </View> */}
 
       <Text style={styles.title}>La communauté vous souhaite la bienvenue</Text>
-      {/* timeline/feed component */}
+      {<ProfilUserInfoScreen/>}
       
       {/* Icones du bas */}
       <View style={styles.bottomBar}>
