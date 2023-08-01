@@ -5,6 +5,7 @@ import SignInScreen from './screens/SignInScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProfilUserScreen from './screens/ProfilUserScreen';
 import AnimalProfilScreen from './screens/AnimalProfilScreen';
+import ProfilUserInfoScreen from './screens/ProfilUserInfoScreen'
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user'
@@ -24,6 +25,7 @@ function App()  {
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ProfilUserScreen" component={ProfilUserScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AnimalProfilScreen" component={AnimalProfilScreen} options={{  headerShown: false}} />
+        <Stack.Screen name="ProfilUserInfoScreen" component={ProfilUserInfoScreen} options={{  headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>
