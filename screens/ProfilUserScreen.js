@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
-import  { profil } from "../reducers/user";
+import  { login } from "../reducers/user";
 
 
 const ProfilUserScreen = () => {

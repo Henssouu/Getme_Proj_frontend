@@ -11,6 +11,10 @@ import {
   Modal,
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+// import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+import { addAnimal } from "../reducers/user";
+import { useDispatch } from 'react-redux';
+
 
 const AnimalProfilScreen = () => {
   const [tailleModalVisible, setTailleModalVisible] = useState(false);
@@ -28,6 +32,20 @@ const AnimalProfilScreen = () => {
   const [puceModalVisible, setPuceModalVisible] = useState(false);
   const [selectedPuce, setSelectedPuce] = useState("");
 
+const[type, setType] = useState('');
+const [nom, setNom] = useState('');
+const [taille, setTaille] = useState('');
+const [couleur, setCouleur] = useState('');
+const [poil, setPoil] = useState('');
+const [sexe, setSexe] = useState('');
+const [castré, setCastré] = useState('');
+const [tatouage, setTatouage] = useState('');
+const [puce, setPuce] = useState('');
+const [birthday, setBirthday] = useState('');
+const [description, setDescription] = useState('');
+// const [photo, setPhoto] = useState('');
+const dispatch = useDispatch();
+
   const toggleModal = (modalState, setModalState) => {
     setModalState(!modalState);
   };
@@ -40,8 +58,34 @@ const AnimalProfilScreen = () => {
   const navigation = useNavigation(); 
 
   const handleTerminer = () => {
-    navigation.navigate('HomeScreen');
-  }
+    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/animaux/newanimal`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ type,nom,taille,couleur,poil,sexe,castré,tatouage,puce,birthday,description }),
+		}).then(response => response.json())
+			.then(data => {
+        console.log(data)
+         if(data.result){
+          dispatch(addAnimal({animal: data.animal}));
+          setType('');
+          setNom('');
+          setTaille('');
+          setCouleur('');
+          setPoil('');
+          setSexe('');
+          setCastré('');
+          setTatouage('');
+          setPuce('');
+          setBirthday('');
+          setDescription('');
+          navigation.navigate('HomeScreen');
+         
+
+}
+   
+  })
+}
+
 
   return (
     <KeyboardAvoidingView
@@ -51,7 +95,7 @@ const AnimalProfilScreen = () => {
       <Text style={styles.title}>Entrer le profil de votre animal</Text>
       <View style={styles.inputContainer}>
         <View>{/*photo*/}</View>
-        <TextInput style={styles.input} placeholder="Nom" />
+        <TextInput onChangeText={(value) => setNom(value)} value={nom} style={styles.input} placeholder="Nom" />
         <View style={styles.inputBlock}>
           <TouchableOpacity
             style={styles.input}
@@ -69,8 +113,8 @@ const AnimalProfilScreen = () => {
             <Text>{selectedTaille || "Taille :"}</Text>
           </TouchableOpacity>
 
-          <TextInput style={styles.input} placeholder="Date de naissance" />
-          <TextInput style={styles.input} placeholder="couleur :" />
+          <TextInput onChangeText={(value) => setBirthday(value)} value={birthday} style={styles.input} placeholder="Date de naissance" />
+          <TextInput onChangeText={(value) => setCouleur(value)} value={couleur} style={styles.input} placeholder="couleur :" />
 
           <TouchableOpacity
             style={styles.input}
@@ -83,7 +127,7 @@ const AnimalProfilScreen = () => {
             style={styles.input}
             onPress={() => toggleModal(sexModalVisible, setSexModalVisible)}
           >
-            <Text>{selectedSex || "Sex :"}</Text>
+            <Text>{selectedSex || "Sexe :"}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -111,7 +155,7 @@ const AnimalProfilScreen = () => {
             <Text>{selectedPuce || "Puce :"}</Text>
           </TouchableOpacity>
 
-          <TextInput style={styles.input} placeholder="Description :" />
+          <TextInput onChangeText={(value) => setDescription(value)} value={description} style={styles.input} placeholder="Description :" />
         </View>
       </View>
       <TouchableOpacity onPress={handleTerminer} style={styles.button}>
@@ -123,8 +167,8 @@ const AnimalProfilScreen = () => {
         <View style={styles.modalContainer}>
           <TouchableOpacity
             style={styles.modalOption}
-            onPress={() =>
-              handleSelect("Chat", setTypeModalVisible, setSelectedType)
+            onPress={() => {
+              handleSelect("Chat", setTypeModalVisible, setSelectedType), setType('Chat') }
             }
           >
             <Text style={styles.modalOptionText}>Chat</Text>
@@ -132,10 +176,10 @@ const AnimalProfilScreen = () => {
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Chien", setTypeModalVisible, setSelectedType)
+              {handleSelect("Chien", setTypeModalVisible, setSelectedType), setType('Chien')}
             }
           >
-            <Text style={styles.modalOptionText}>Dog</Text>
+            <Text style={styles.modalOptionText}>Chien</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -146,26 +190,26 @@ const AnimalProfilScreen = () => {
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Petite", setTailleModalVisible, setSelectedTaille)
+              {handleSelect("Petite", setTailleModalVisible, setSelectedTaille), setTaille('Petite')}
             }
           >
-            <Text style={styles.modalOptionText}>petite</Text>
+            <Text style={styles.modalOptionText}>Petite</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Moyenne", setTailleModalVisible, setSelectedTaille)
+              {handleSelect("Moyenne", setTailleModalVisible, setSelectedTaille),setTaille('Moyenne') }
             }
           >
-            <Text style={styles.modalOptionText}>moyenne</Text>
+            <Text style={styles.modalOptionText}>Moyenne</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Grande", setTailleModalVisible, setSelectedTaille)
+              {handleSelect("Grande", setTailleModalVisible, setSelectedTaille),setTaille('Grande') }
             }
           >
-            <Text style={styles.modalOptionText}>grande</Text>
+            <Text style={styles.modalOptionText}>Grande</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -176,26 +220,26 @@ const AnimalProfilScreen = () => {
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Court", setPoilModalVisible, setSelectedPoil)
+              {handleSelect("Court", setPoilModalVisible, setSelectedPoil),setPoil('Court') }
             }
           >
-            <Text style={styles.modalOptionText}>court</Text>
+            <Text style={styles.modalOptionText}>Court</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Mi-long", setPoilModalVisible, setSelectedPoil)
+              {handleSelect("Mi-long", setPoilModalVisible, setSelectedPoil),setPoil('Mi-long') }
             }
           >
-            <Text style={styles.modalOptionText}>mi-long</Text>
+            <Text style={styles.modalOptionText}>Mi-long</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Long", setPoilModalVisible, setSelectedPoil)
+              {handleSelect("Long", setPoilModalVisible, setSelectedPoil), setPoil('Long')}
             }
           >
-            <Text style={styles.modalOptionText}>long</Text>
+            <Text style={styles.modalOptionText}>Long</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -206,18 +250,18 @@ const AnimalProfilScreen = () => {
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Mâle", setSexModalVisible, setSelectedSex)
+              {handleSelect("Mâle", setSexModalVisible, setSelectedSex),setSexe('Mâle') }
             }
           >
-            <Text style={styles.modalOptionText}>male</Text>
+            <Text style={styles.modalOptionText}>Mâle</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("femelle", setSexModalVisible, setSelectedSex)
+              {handleSelect("Femelle", setSexModalVisible, setSelectedSex),setSexe('Femelle') }
             }
           >
-            <Text style={styles.modalOptionText}>femelle</Text>
+            <Text style={styles.modalOptionText}>Femelle</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -228,18 +272,18 @@ const AnimalProfilScreen = () => {
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Oui", setCastréModalVisible, setSelectedCastré)
+              {handleSelect("Oui", setCastréModalVisible, setSelectedCastré),setCastré('Oui') }
             }
           >
-            <Text style={styles.modalOptionText}>yes</Text>
+            <Text style={styles.modalOptionText}>Oui</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Non", setCastréModalVisible, setSelectedCastré)
+              {handleSelect("Non", setCastréModalVisible, setSelectedCastré),setCastré('Non') }
             }
           >
-            <Text style={styles.modalOptionText}>no</Text>
+            <Text style={styles.modalOptionText}>Non</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -250,18 +294,18 @@ const AnimalProfilScreen = () => {
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Oui", setTatouageModalVisible, setSelectedTatouage)
+              {handleSelect("Oui", setTatouageModalVisible, setSelectedTatouage), setTatouage('Oui')}
             }
           >
-            <Text style={styles.modalOptionText}>yes</Text>
+            <Text style={styles.modalOptionText}>Oui</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Non", setTatouageModalVisible, setSelectedTatouage)
+              {handleSelect("Non", setTatouageModalVisible, setSelectedTatouage), setTatouage('Non')}
             }
           >
-            <Text style={styles.modalOptionText}>no</Text>
+            <Text style={styles.modalOptionText}>Non</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -272,18 +316,18 @@ const AnimalProfilScreen = () => {
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Oui", setPuceModalVisible, setSelectedPuce)
+              {handleSelect("Oui", setPuceModalVisible, setSelectedPuce),setPuce('Oui')}
             }
           >
-            <Text style={styles.modalOptionText}>yes</Text>
+            <Text style={styles.modalOptionText}>Oui</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalOption}
             onPress={() =>
-              handleSelect("Non", setPuceModalVisible, setSelectedPuce)
+              {handleSelect("Non", setPuceModalVisible, setSelectedPuce), setPuce('Non')}
             }
           >
-            <Text style={styles.modalOptionText}>no</Text>
+            <Text style={styles.modalOptionText}>Non</Text>
           </TouchableOpacity>
         </View>
       </Modal>
