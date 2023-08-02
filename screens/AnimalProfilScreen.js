@@ -153,7 +153,7 @@ const AnimalProfilScreen = () => {
             </View>
           </Modal>
 
-          {/* Modal for "Taille" */}
+          {/* Modal pour la  "Taille" */}
           <Modal visible={tailleModalVisible} animationType="slide">
             <View style={styles.modalContainer}>
               <TouchableOpacity
@@ -195,7 +195,7 @@ const AnimalProfilScreen = () => {
             </View>
           </Modal>
 
-          {/* Modal for "Poil" */}
+          {/* Modal pour "Poil" */}
           <Modal visible={poilModalVisible} animationType="slide">
             <View style={styles.modalContainer}>
               <TouchableOpacity
