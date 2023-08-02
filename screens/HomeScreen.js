@@ -3,22 +3,35 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHouse, faMap, faEnvelope, faPaw, faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import ProfilUserInfoScreen from './ProfilUserInfoScreen';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { logout } from '../reducers/user';
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const handleLogout = () => {
-    // logout mécanique
-  }
+    dispatch(logout());
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'SignIn' }],
+    });
+  };
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.header}>
-        <Text style={styles.espaceProfil}> container </Text>
-      </View> */}
+      {/* Profile user info */}
+      <View style={styles.userInfoContainer}>
+        <ProfilUserInfoScreen />
+      </View>
 
-      <Text style={styles.title}>La communauté vous souhaite la bienvenue</Text>
-      {<ProfilUserInfoScreen/>}
-      
+      {/* Logout Button */}
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+        <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
+        <Text style={styles.logoutButtonText}>Logout</Text>
+      </TouchableOpacity>
+
       {/* Icones du bas */}
       <View style={styles.bottomBar}>
         <FontAwesomeIcon icon={faHouse} size={25} style={styles.icon} />
@@ -27,12 +40,6 @@ const HomeScreen = () => {
         <FontAwesomeIcon icon={faPaw} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faPlus} size={25} style={styles.icon} />
       </View>
-
-      {/* Logout Btn */}
-      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-        <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
-        <Text style={styles.logoutButtonText}>Logout</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -44,10 +51,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  userInfoContainer: {
+    position: 'absolute',
+    top: 70,
+    right: 170,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   bottomBar: {
     flexDirection: 'row',
@@ -62,7 +71,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   icon: {
-    color: 'black', 
+    color: 'black',
   },
   logoutButton: {
     position: 'absolute',
@@ -80,20 +89,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 10,
   },
-  espaceProfil: {
-    // height: "60%",
-    // width: "100%",
-  },
-  header: {
-    // flex: 1,
-    // marginTop: 20,
-    // width: "90%",
-    // height: "60%",
-    // borderColor: "#ccc",
-    // borderWidth: 1,
-    // borderRadius: 5,
-
-  }
 });
 
 export default HomeScreen;

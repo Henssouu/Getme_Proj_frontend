@@ -33,7 +33,7 @@ const ProfilUserScreen = () => {
 		}).then(response => response.json())
 			.then(data => {
         if (data.result) {
-          dispatch(profil({nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse}));
+          dispatch(login({nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse}));
           setNomUser('');
           setPrenomUser('');
           setPseudo('');

@@ -1,33 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-
-
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Modal,
-  ImageBackground,
-  Image
-} from "react-native";
-import InscriptionScreen from "../screens/InscriptionScreen";
-import HomeScreen from "../screens/HomeScreen";
-import {login} from "../reducers/user";
-
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, ImageBackground } from 'react-native';
+import InscriptionScreen from '../screens/InscriptionScreen';
+import { login } from '../reducers/user';
 
 function SignInScreen() {
-
- 
   const dispatch = useDispatch();
   const [isSignUpModalVisible, setSignUpModalVisible] = useState(false);
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('');
   const [userError, setUserError] = useState(false);
-  const navigation = useNavigation(); 
-
+  const navigation = useNavigation();
 
   const handleSignUp = () => {
     setSignUpModalVisible(true);
@@ -37,31 +21,25 @@ function SignInScreen() {
     setSignUpModalVisible(false);
   };
 
-
   const handleSignIn = () => {
-
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: signInEmail, password: signInPassword}),
-    }).then(response => response.json())
+      body: JSON.stringify({ email: signInEmail, password: signInPassword }),
+    })
+      .then(response => response.json())
       .then(data => {
         if (data.result) {
-          dispatch(login({email: signInEmail, token: data.token}));
+
+          
+          dispatch(login(data.user)); // Dispatch the login action with the entire data object
           setSignInEmail('');
           setSignInPassword('');
           navigation.navigate('HomeScreen');
-         
-     
         } else {
-  
           setUserError(true);
-          
         }
-     
-     
       });
-
   }
 
   const colors = ["red", "yellow", "blue", "black"];

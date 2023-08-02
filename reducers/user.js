@@ -1,35 +1,42 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    value: { token: '', email: null, birthday: null, nom: null, prenom: null, pseudo: null, adresse: null },
-  };
-  
-  export const userSlice = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {
-      login: (state, action) => {
-        state.value.token = action.payload.token;
-        state.value.email = action.payload.email;
-        state.value.birthday = action.payload.birthday;
-      },
-      logout: (state) => {
-        state.value.token = '';
-        state.value.email = null;
-        state.value.birthday = null;
-        state.value.nom = null;
-        state.value.prenom = null;
-        state.value.pseudo = null;
-        state.value.adresse = null;
-      },
-      profil: (state,action) => {
-        state.value.nom = action.payload.nom;
-        state.value.prenom = action.payload.prenom;
-        state.value.pseudo = action.payload.pseudo;
-        state.value.adresse = action.payload.adresse;
-      }
+  value: {
+    token: '',
+    email: null,
+    birthday: null,
+    nom: null,
+    prenom: null,
+    pseudo: null,
+    adresse: null,
+  },
+};
+
+export const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    login: (state, action) => {
+      const { token, email, birthday, nom, prenom, pseudo, adresse } = action.payload;
+      state.value.token = token;
+      state.value.email = email;
+      state.value.birthday = birthday;
+      state.value.nom = nom;
+      state.value.prenom = prenom;
+      state.value.pseudo = pseudo;
+      state.value.adresse = adresse;
     },
-  });
-  
-  export const { login, logout, profil } = userSlice.actions;
-  export default userSlice.reducer;
+    logout: (state) => {
+      state.value.token = '';
+      state.value.email = null;
+      state.value.birthday = null;
+      state.value.nom = null;
+      state.value.prenom = null;
+      state.value.pseudo = null;
+      state.value.adresse = null;
+    },
+  },
+});
+
+export const { login, logout, profil } = userSlice.actions;
+export default userSlice.reducer;

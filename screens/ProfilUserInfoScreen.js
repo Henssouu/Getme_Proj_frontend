@@ -1,28 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const ProfilUserInfoScreen = () => {
-  const user = useSelector((state) => state.user);
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    if (user) {
-      fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/${user.token}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setUserData(data);
-        })
-        .catch((error) => {
-          console.log('Error fetching user data:', error);
-        });
-    }
-  }, [user]);
+  const userData = useSelector((state) => state.user.value);
 
   return (
     <View style={styles.container}>
@@ -33,7 +14,7 @@ const ProfilUserInfoScreen = () => {
           </Text>
           <Text style={styles.userPseudo}>Pseudo: {userData.pseudo}</Text>
           <Text style={styles.userAddress}>Adresse: {userData.adresse}</Text>
-          {/* Affiche d'autre informations si besoin */}
+          {/* Display other information if needed */}
         </View>
       ) : (
         <ActivityIndicator size="large" color="blue" />
@@ -41,7 +22,6 @@ const ProfilUserInfoScreen = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
