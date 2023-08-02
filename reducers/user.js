@@ -9,6 +9,7 @@ const initialState = {
     prenom: null,
     pseudo: null,
     adresse: null,
+    animal: [],
   },
 };
 
@@ -35,8 +36,11 @@ export const userSlice = createSlice({
       state.value.pseudo = null;
       state.value.adresse = null;
     },
+    addAnimal: (state, action) => {
+      state.value.animal.push(action.payload.animal);  
   },
+}
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, addAnimal } = userSlice.actions;
 export default userSlice.reducer;
