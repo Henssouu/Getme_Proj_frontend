@@ -72,7 +72,7 @@ function InscriptionScreen(props)  {
         <TextInput style={styles.input} placeholder="Date de naissance" onChangeText={(value) => setSignUpBirthday(value)} value={signUpBirthday} />
       </View>
 
-      {emailError && <Text style={styles.error}>Adresse email incorrect</Text> }
+      {emailError && <Text style={styles.error}>Adresse email incorrect ou compte déjà existant</Text> }
       {/* active la fonction handleProfil au click */}
       <TouchableOpacity style={styles.button} onPress={handleProfil}>
         <Text style={styles.buttonText}>S'enregistrer</Text>       

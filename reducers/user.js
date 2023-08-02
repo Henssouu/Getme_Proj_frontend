@@ -17,7 +17,10 @@ const initialState = {
         state.value.token = '';
         state.value.email = null;
         state.value.birthday = null;
-   
+        state.value.nom = null;
+        state.value.prenom = null;
+        state.value.pseudo = null;
+        state.value.adresse = null;
       },
       profil: (state,action) => {
         state.value.nom = action.payload.nom;

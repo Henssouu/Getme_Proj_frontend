@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Modal,
 } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 const AnimalProfilScreen = () => {
   const [tailleModalVisible, setTailleModalVisible] = useState(false);
@@ -36,6 +37,12 @@ const AnimalProfilScreen = () => {
     setModalState(false);
   };
 
+  const navigation = useNavigation(); 
+
+  const handleTerminer = () => {
+    navigation.navigate('HomeScreen');
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -44,6 +51,7 @@ const AnimalProfilScreen = () => {
       <Text style={styles.title}>Entrer le profil de votre animal</Text>
       <View style={styles.inputContainer}>
         <View>{/*photo*/}</View>
+        <TextInput style={styles.input} placeholder="Nom" />
         <View style={styles.inputBlock}>
           <TouchableOpacity
             style={styles.input}
@@ -106,7 +114,7 @@ const AnimalProfilScreen = () => {
           <TextInput style={styles.input} placeholder="Description :" />
         </View>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={handleTerminer} style={styles.button}>
         <Text style={styles.buttonText}>Terminer</Text>
       </TouchableOpacity>
 
