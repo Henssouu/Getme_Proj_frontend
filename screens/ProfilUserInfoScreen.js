@@ -10,10 +10,10 @@ const ProfilUserInfoScreen = () => {
       {userData ? (
         <View style={styles.userDataContainer}>
           <Text style={styles.userName}>
-            User Name: {userData.nom} {userData.prenom}
+            {userData.nom} {userData.prenom}
           </Text>
-          <Text style={styles.userPseudo}>Pseudo: {userData.pseudo}</Text>
-          <Text style={styles.userAddress}>Adresse: {userData.adresse}</Text>
+          <Text style={styles.userPseudo}>{userData.pseudo}</Text>
+          <Text style={styles.userAddress}>{userData.adresse}</Text>
           {/* Display other information if needed */}
         </View>
       ) : (
