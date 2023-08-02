@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Modal,
+  SafeAreaView,
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 // import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
@@ -55,7 +56,7 @@ const dispatch = useDispatch();
     setModalState(false);
   };
 
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   const handleTerminer = () => {
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/animaux/newanimal`, {
@@ -92,7 +93,10 @@ const dispatch = useDispatch();
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
+            <View style={styles.containerWrapper}>
+        <View style={styles.titleContainer}>
       <Text style={styles.title}>Entrer le profil de votre animal</Text>
+      </View>
       <View style={styles.inputContainer}>
         <View>{/*photo*/}</View>
         <TextInput onChangeText={(value) => setNom(value)} value={nom} style={styles.input} placeholder="Nom" />
@@ -104,24 +108,26 @@ const dispatch = useDispatch();
             <Text>{selectedType || "Type :"}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.input}
-            onPress={() =>
-              toggleModal(tailleModalVisible, setTailleModalVisible)
-            }
-          >
-            <Text>{selectedTaille || "Taille :"}</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.input}
+                onPress={() =>
+                  toggleModal(tailleModalVisible, setTailleModalVisible)
+                }
+              >
+                <Text>{selectedTaille || "Taille :"}</Text>
+              </TouchableOpacity>
 
           <TextInput onChangeText={(value) => setBirthday(value)} value={birthday} style={styles.input} placeholder="Date de naissance" />
           <TextInput onChangeText={(value) => setCouleur(value)} value={couleur} style={styles.input} placeholder="couleur :" />
 
-          <TouchableOpacity
-            style={styles.input}
-            onPress={() => toggleModal(poilModalVisible, setPoilModalVisible)}
-          >
-            <Text>{selectedPoil || "Poil :"}</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.input}
+                onPress={() =>
+                  toggleModal(poilModalVisible, setPoilModalVisible)
+                }
+              >
+                <Text>{selectedPoil || "Poil :"}</Text>
+              </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.input}
@@ -130,37 +136,41 @@ const dispatch = useDispatch();
             <Text>{selectedSex || "Sexe :"}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.input}
-            onPress={() =>
-              toggleModal(castréModalVisible, setCastréModalVisible)
-            }
-          >
-            <Text>{selectedCastré || "Castré :"}</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.input}
+                onPress={() =>
+                  toggleModal(castréModalVisible, setCastréModalVisible)
+                }
+              >
+                <Text>{selectedCastré || "Castré :"}</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.input}
-            onPress={() =>
-              toggleModal(tatouageModalVisible, setTatouageModalVisible)
-            }
-          >
-            <Text>{selectedTatouage || "Tatouage :"}</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.input}
+                onPress={() =>
+                  toggleModal(tatouageModalVisible, setTatouageModalVisible)
+                }
+              >
+                <Text>{selectedTatouage || "Tatouage :"}</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.input}
-            onPress={() => toggleModal(puceModalVisible, setPuceModalVisible)}
-          >
-            <Text>{selectedPuce || "Puce :"}</Text>
-          </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.input}
+                onPress={() =>
+                  toggleModal(puceModalVisible, setPuceModalVisible)
+                }
+              >
+                <Text>{selectedPuce || "Puce :"}</Text>
+              </TouchableOpacity>
 
           <TextInput onChangeText={(value) => setDescription(value)} value={description} style={styles.input} placeholder="Description :" />
         </View>
       </View>
+      <View style={styles.buttonContainer}>
       <TouchableOpacity onPress={handleTerminer} style={styles.button}>
         <Text style={styles.buttonText}>Terminer</Text>
       </TouchableOpacity>
+      </View>
 
       {/* Modal for "Type" */}
       <Modal visible={typeModalVisible} animationType="slide">
@@ -331,16 +341,28 @@ const dispatch = useDispatch();
           </TouchableOpacity>
         </View>
       </Modal>
+      </View>
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  containerWrapper: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+  },
+  titleContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 30,
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
@@ -367,10 +389,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   button: {
+    width: 160,
     backgroundColor: "blue",
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 5,
+  },
+  buttonContainer: {
+    alignItems: "center",
+    marginTop: 20,
   },
   buttonText: {
     color: "white",

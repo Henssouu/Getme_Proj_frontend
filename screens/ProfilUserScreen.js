@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   StyleSheet,
+  SafeAreaView,
 } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
 import  { login } from "../reducers/user";
@@ -49,9 +50,9 @@ const ProfilUserScreen = () => {
 }
 
   return (
+    <SafeAreaView       style={styles.container}>
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
     >
       <Text style={styles.title}>Compléter votre profil</Text>
       <View style={styles.inputContainer}>
@@ -90,11 +91,13 @@ const ProfilUserScreen = () => {
       </View>
 
       {/* selon le résultat de la condition, la navigation se fera au click */}
-      
+      <View style={styles.btncontainer}>
       <TouchableOpacity style={styles.button} onPress={switchToAnimal}>
         <Text style={styles.buttonText}>Suivant</Text>
       </TouchableOpacity>
+      </View>
     </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -104,6 +107,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
   },
   title: {
     fontSize: 24,
@@ -155,6 +162,12 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 5,
+    width: 150,
+    height: 50,
+  },
+  btncontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     color: "white",
