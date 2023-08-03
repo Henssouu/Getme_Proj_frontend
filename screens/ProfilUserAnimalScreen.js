@@ -1,29 +1,29 @@
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const ProfilUserAnimalScreen = () => {
   const user = useSelector((state) => state.user.value);
-
+  const animal = user?.animal?.[0];
  
   return (
     <View style={styles.container}>
       {user ? (
+        <ScrollView>
         <View style={styles.userDataContainer}>
-          <Text style={styles.userName}>
-            {user.animal[0].nom}
-          </Text>
-          <Text style={styles.userPseudo}>Type: {user.animal[0].type}</Text>
-          <Text style={styles.userAddress}>Taille: {user.animal[0].taille}</Text>
-          <Text style={styles.userAddress}>Couleur: {user.animal[0].couleur}</Text>
-          <Text style={styles.userAddress}>Poil: {user.animal[0].poil}</Text>
-          <Text style={styles.userAddress}>Sexe: {user.animal[0].sexe}</Text>
-          <Text style={styles.userAddress}>Castré: {user.animal[0].castré}</Text>
-          <Text style={styles.userAddress}>Tatouage: {user.animal[0].tatouage}</Text>
-          <Text style={styles.userAddress}>Puce: {user.animal[0].puce}</Text>
-          <Text style={styles.userAddress}>Description: {user.animal[0].description}</Text>
+        <Text style={styles.userName}>{animal?.nom}</Text>
+            <Text style={styles.userPseudo}>Type: {animal?.type}</Text>
+            <Text style={styles.userAddress}>Taille: {animal?.taille}</Text>
+            <Text style={styles.userAddress}>Couleur: {animal?.couleur}</Text>
+            <Text style={styles.userAddress}>Poil: {animal?.poil}</Text>
+            <Text style={styles.userAddress}>Sexe: {animal?.sexe}</Text>
+            <Text style={styles.userAddress}>Castré: {animal?.castré}</Text>
+            <Text style={styles.userAddress}>Tatouage: {animal?.tatouage}</Text>
+            <Text style={styles.userAddress}>Puce: {animal?.puce}</Text>
+            <Text style={styles.userAddress}>Description: {animal?.description}</Text>
           {/* affiche d'autre information si besoin */}
         </View>
+      </ScrollView>
       ) : (
         <ActivityIndicator size="large" color="blue" />
       )}
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 27,
   },
   userDataContainer: {
     backgroundColor: '#f9f9f9',
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    minHeight: 300,
   },
   userName: {
     fontSize: 18,
@@ -62,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfilUserAnimalScreen ;
+export default ProfilUserInfoScreen;

@@ -7,6 +7,7 @@ import ProfilUserAnimalScreen from './ProfilUserAnimalScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { logout } from '../reducers/user';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
@@ -20,7 +21,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-
+console.log("krypto", user)
 
   const pet = [];
     
@@ -40,14 +41,14 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Profile user info */}
+      {/* Profile user info */} 
       <View style={styles.userInfoContainer}>
         <ProfilUserInfoScreen />
        </View>
-      <View>
+       
+      <View style={styles.userInfoContainer}>
       <ProfilUserAnimalScreen />
-      </View>
-
+      </View>    
       {/* Logout Button */}
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
         <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
@@ -57,14 +58,15 @@ const HomeScreen = () => {
 
       <View style={styles.plusButton}><FontAwesomeIcon icon={faCirclePlus} style={styles.faCirclePlus} /></View>
 
-      {/* Icones du bas */}
+      
       <View style={styles.bottomBar}>
-        <FontAwesomeIcon icon={faHouse} size={25} style={styles.icon} />
+        {/* <FontAwesomeIcon icon={faHouse} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faMap} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faEnvelope} size={25} style={styles.icon} />
-        <FontAwesomeIcon icon={faPaw} size={25} style={styles.icon} />
+        <FontAwesomeIcon icon={faPaw} size={25} style={styles.icon} /> */}
         
       </View>
+
     </View>
   );
 };
@@ -84,6 +86,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  // scrollview : {
+  //   height: 100,
+  //   width: 50,
+  // },
   bottomBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
