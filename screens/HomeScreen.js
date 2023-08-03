@@ -34,14 +34,15 @@ const HomeScreen = () => {
 
       <View style={styles.plusButton}><FontAwesomeIcon icon={faCirclePlus} style={styles.faCirclePlus} /></View>
 
-      {/* Icones du bas */}
+      
       <View style={styles.bottomBar}>
-        <FontAwesomeIcon icon={faHouse} size={25} style={styles.icon} />
+        {/* <FontAwesomeIcon icon={faHouse} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faMap} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faEnvelope} size={25} style={styles.icon} />
-        <FontAwesomeIcon icon={faPaw} size={25} style={styles.icon} />
+        <FontAwesomeIcon icon={faPaw} size={25} style={styles.icon} /> */}
         
       </View>
+      
     </View>
   );
 };
