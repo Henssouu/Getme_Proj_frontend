@@ -36,7 +36,7 @@ const ProfilUserScreen = () => {
 		}).then(response => response.json())
 			.then(data => {
         if (data.result) {
-          dispatch(login({token: user.token, email: user.email, birthday: user.birthday, nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse}));
+          dispatch(login({token: user.token, email: user.email, nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse}));
           setNomUser('');
           setPrenomUser('');
           setPseudo('');
