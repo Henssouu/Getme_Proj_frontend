@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, TextInput, Button } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
-const AvisDeRechercheScreen = () => {
+const MapScreen = () => {
   const [region, setRegion] = useState({
     latitude: 37.78825, // Initial latitude (example: Paris)
     longitude: -122.4324, // Initial longitude (example: Paris)
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AvisDeRechercheScreen;
+export default MapScreen;

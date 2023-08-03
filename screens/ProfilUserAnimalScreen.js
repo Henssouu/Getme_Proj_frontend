@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const ProfilUserAnimalScreen = () => {
   const user = useSelector((state) => state.user.value);
-  const animal = user?.animal?.[0];
+  const animal = user?.animal?.[0]; //chaining operator
  
   return (
     <View style={styles.container}>
