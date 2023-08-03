@@ -3,11 +3,18 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHouse, faMap, faEnvelope, faPaw, faPlus, faRightFromBracket, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import ProfilUserInfoScreen from './ProfilUserInfoScreen';
-import { useDispatch } from 'react-redux';
+import ProfilUserAnimalScreen from './ProfilUserAnimalScreen';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { logout } from '../reducers/user';
 
+
+
+
 const HomeScreen = () => {
+
+  const user = useSelector((state) => state.user.value);
+  console.log(user);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -24,6 +31,9 @@ const HomeScreen = () => {
       {/* Profile user info */}
       <View style={styles.userInfoContainer}>
         <ProfilUserInfoScreen />
+       </View>
+      <View>
+      <ProfilUserAnimalScreen />
       </View>
 
       {/* Logout Button */}

@@ -3,17 +3,24 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const ProfilUserInfoScreen = () => {
-  const userData = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.user.value);
 
   return (
     <View style={styles.container}>
-      {userData ? (
+      {user ? (
         <View style={styles.userDataContainer}>
           <Text style={styles.userName}>
-            Nom d'utilisateur: {userData.nom} {userData.prenom}
+            {user.animal[1].nom}
           </Text>
-          <Text style={styles.userPseudo}>Pseudo: {userData.pseudo}</Text>
-          <Text style={styles.userAddress}>Adresse: {userData.adresse}</Text>
+          <Text style={styles.userPseudo}>Type: {user.animal[1].type}</Text>
+          <Text style={styles.userAddress}>Taille: {user.animal[1].taille}</Text>
+          <Text style={styles.userAddress}>Couleur: {user.animal[1].couleur}</Text>
+          <Text style={styles.userAddress}>Poil: {user.animal[1].poil}</Text>
+          <Text style={styles.userAddress}>Sexe: {user.animal[1].sexe}</Text>
+          <Text style={styles.userAddress}>Castré: {user.animal[1].castré}</Text>
+          <Text style={styles.userAddress}>Tatouage: {user.animal[1].tatouage}</Text>
+          <Text style={styles.userAddress}>Puce: {user.animal[1].puce}</Text>
+          <Text style={styles.userAddress}>Description: {user.animal[1].description}</Text>
           {/* affiche d'autre information si besoin */}
         </View>
       ) : (
