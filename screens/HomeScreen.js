@@ -7,6 +7,7 @@ import ProfilUserAnimalScreen from './ProfilUserAnimalScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { logout } from '../reducers/user';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
@@ -20,7 +21,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-
+console.log("krypto", user)
 
   const pet = [];
     
@@ -40,14 +41,14 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Profile user info */}
+      {/* Profile user info */} 
       <View style={styles.userInfoContainer}>
         <ProfilUserInfoScreen />
        </View>
+       
       <View style={styles.userInfoContainer}>
       <ProfilUserAnimalScreen />
-      </View>
-
+      </View>    
       {/* Logout Button */}
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
         <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
@@ -84,6 +85,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  // scrollview : {
+  //   height: 100,
+  //   width: 50,
+  // },
   bottomBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
