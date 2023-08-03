@@ -26,6 +26,7 @@ export const userSlice = createSlice({
       state.value.prenom = prenom;
       state.value.pseudo = pseudo;
       state.value.adresse = adresse;
+       
     },
     logout: (state) => {
       state.value.token = '';
@@ -37,7 +38,7 @@ export const userSlice = createSlice({
       state.value.adresse = null;
     },
     addAnimal: (state, action) => {
-      state.value.animal.push(action.payload.animal);  
+      state.value.animal.push(action.payload.animal); 
   },
 }
 });
