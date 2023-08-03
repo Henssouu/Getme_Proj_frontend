@@ -33,7 +33,7 @@ export const userSlice = createSlice({
       state.value.prenom = null;
       state.value.pseudo = null;
       state.value.adresse = null;
-      state.value.animal = state.value.animal.filter(e => e.nom !== action.payload.nom);
+      state.value.animal = state.value.animal.filter(e => e.token !== action.payload);
     },
     addAnimal: (state, action) => {
       state.value.animal.push(action.payload.animal); 
