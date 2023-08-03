@@ -32,7 +32,7 @@ const HomeScreen = () => {
       <View style={styles.userInfoContainer}>
         <ProfilUserInfoScreen />
        </View>
-      <View>
+      <View style={styles.userInfoContainer}>
       <ProfilUserAnimalScreen />
       </View>
 
@@ -52,7 +52,7 @@ const HomeScreen = () => {
         <FontAwesomeIcon icon={faPaw} size={25} style={styles.icon} /> */}
         
       </View>
-      
+
     </View>
   );
 };

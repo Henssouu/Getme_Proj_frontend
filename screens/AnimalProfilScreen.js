@@ -385,7 +385,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom: 10,
+    marginBottom: 2,
+    marginTop: 8.5,
     justifyContent: 'center',
   },
   inputContainer: {
@@ -406,7 +407,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: "center",
-    marginTop: 20,
+    marginTop: -13,
   },
   buttonText: {
     color: "white",

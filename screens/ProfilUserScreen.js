@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    marginTop: 10,
   },
   inputContainer: {
     width: "80%",
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 20,
-    marginTop: 10,
+    marginTop: 20,
   },
   inputBlock: {
     marginBottom: 20,
