@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import ProfilUserScreen from "../screens/ProfilUserScreen";
 import { login } from "../reducers/user";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function InscriptionScreen(props)  {
@@ -28,8 +28,8 @@ function InscriptionScreen(props)  {
 
 
   const navigation = useNavigation();
-
-
+  const user = useSelector((state) => state.user.value);
+  console.log(user);
 
   //Gère la navigation vers un autre screen au click
   const handleProfil = () => {

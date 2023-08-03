@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHouse, faMap, faEnvelope, faPaw, faPlus, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faMap, faEnvelope, faPaw, faPlus, faRightFromBracket, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import ProfilUserInfoScreen from './ProfilUserInfoScreen';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -32,13 +32,15 @@ const HomeScreen = () => {
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
 
+      <View style={styles.plusButton}><FontAwesomeIcon icon={faCirclePlus} style={styles.faCirclePlus} /></View>
+
       {/* Icones du bas */}
       <View style={styles.bottomBar}>
         <FontAwesomeIcon icon={faHouse} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faMap} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faEnvelope} size={25} style={styles.icon} />
         <FontAwesomeIcon icon={faPaw} size={25} style={styles.icon} />
-        <FontAwesomeIcon icon={faPlus} size={25} style={styles.icon} />
+        
       </View>
     </View>
   );
@@ -47,14 +49,15 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
     padding: 20,
+    paddingBottom: '15%',
   },
   userInfoContainer: {
     position: 'absolute',
     top: 70,
-    right: 170,
+    right: '34.5%',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -89,6 +92,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 10,
   },
+  plusButton: {
+    textAlign:'start',
+    justifyContent: 'start',
+  }, 
+    faCirclePlus: {
+      color: "#469eb4",
+    },
+
 });
 
 export default HomeScreen;

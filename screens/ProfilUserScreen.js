@@ -22,8 +22,10 @@ const ProfilUserScreen = () => {
   const [prenomUser, setPrenomUser] = useState('');
   const [pseudo, setPseudo] = useState('');
   const [adresse, setAdresse] = useState('');
+  const [userProfilError, setUserProfilError] = useState(false);
 
   const user = useSelector((state) => state.user.value);
+  const error = userProfilError && <Text style={styles.error}>Merci de renseigner tous les champs obligatoires *</Text> 
   //condition pour passer du screen "AnimalProfil" ou "HomeScreen"
   const switchToAnimal = () => {
 
@@ -34,18 +36,23 @@ const ProfilUserScreen = () => {
 		}).then(response => response.json())
 			.then(data => {
         if (data.result) {
-          dispatch(login({nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse}));
+          dispatch(login({token: user.token, email: user.email, birthday: user.birthday, nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse}));
           setNomUser('');
           setPrenomUser('');
           setPseudo('');
           setAdresse('');
+         
+          if (hasAnimal) {
+            navigation.navigate("AnimalProfilScreen");
+          } else {
+            navigation.navigate("HomeScreen");
+          }
+        
+        } else {
+          setUserProfilError(true);
          }
 
-    if (hasAnimal) {
-      navigation.navigate("AnimalProfilScreen");
-    } else {
-      navigation.navigate("HomeScreen");
-    }
+  
   })
 }
 
@@ -59,10 +66,10 @@ const ProfilUserScreen = () => {
         <View>{/*photo*/}</View>
         <View style={styles.inputBlock}>
           {/*photo*/}
-          <TextInput style={styles.input}  onChangeText={(value) => setNomUser(value)} value={nomUser} placeholder="Nom" />
+          <TextInput style={styles.input}  onChangeText={(value) => setNomUser(value)} value={nomUser}  placeholder="Nom:"/>
           <TextInput style={styles.input} onChangeText={(value) => setPrenomUser(value)} value={prenomUser} placeholder="Prénom :" />
           <TextInput style={styles.input} onChangeText={(value) => setPseudo(value)} value={pseudo} placeholder="Pseudo :" />
-          <TextInput style={styles.input} onChangeText={(value) => setAdresse(value)} value={adresse} placeholder="Adresse" /> 
+          <TextInput style={styles.input} onChangeText={(value) => setAdresse(value)} value={adresse} placeholder="Adresse :" /> 
           <View style={styles.hasAnimalContainer}>
             <Text style={styles.hasAnimalText}>Avez-vous un animal ?</Text>
 
@@ -89,7 +96,7 @@ const ProfilUserScreen = () => {
           </View>
         </View>
       </View>
-
+      <View>{userProfilError && <Text style={styles.error}>Merci de renseigner tous les champs obligatoires *</Text> }</View>
       {/* selon le résultat de la condition, la navigation se fera au click */}
       <View style={styles.btncontainer}>
       <TouchableOpacity style={styles.button} onPress={switchToAnimal}>
@@ -119,7 +126,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    minWidth: 500,
     height: 40,
     borderColor: "#ccc",
     borderWidth: 1,
@@ -173,6 +179,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  error: {
+    marginTop: 5,
+    marginBottom: 50,
+    color: 'red',
   },
 });
 

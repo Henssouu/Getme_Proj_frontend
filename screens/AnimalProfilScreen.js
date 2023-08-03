@@ -14,7 +14,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 // import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 import { addAnimal } from "../reducers/user";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const AnimalProfilScreen = () => {
@@ -44,8 +44,11 @@ const [tatouage, setTatouage] = useState('');
 const [puce, setPuce] = useState('');
 const [birthday, setBirthday] = useState('');
 const [description, setDescription] = useState('');
+const [animalProfilError, setAnimalProfilError] = useState(false);
 // const [photo, setPhoto] = useState('');
 const dispatch = useDispatch();
+const user = useSelector((state) => state.user.value);
+const navigation = useNavigation();
 
   const toggleModal = (modalState, setModalState) => {
     setModalState(!modalState);
@@ -56,13 +59,14 @@ const dispatch = useDispatch();
     setModalState(false);
   };
 
-  const navigation = useNavigation();
+  console.log(user);
+
 
   const handleTerminer = () => {
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/animaux/newanimal`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ type,nom,taille,couleur,poil,sexe,castré,tatouage,puce,birthday,description }),
+			body: JSON.stringify({ token: user.token,type,nom,taille,couleur,poil,sexe,castré,tatouage,puce,birthday,description }),
 		}).then(response => response.json())
 			.then(data => {
         console.log(data)
@@ -80,8 +84,8 @@ const dispatch = useDispatch();
           setBirthday('');
           setDescription('');
           navigation.navigate('HomeScreen');
-         
-
+}else{
+  setAnimalProfilError(true);        
 }
    
   })
@@ -99,13 +103,15 @@ const dispatch = useDispatch();
       </View>
       <View style={styles.inputContainer}>
         <View>{/*photo*/}</View>
+  
         <TextInput onChangeText={(value) => setNom(value)} value={nom} style={styles.input} placeholder="Nom" />
         <View style={styles.inputBlock}>
           <TouchableOpacity
             style={styles.input}
             onPress={() => toggleModal(typeModalVisible, setTypeModalVisible)}
           >
-            <Text>{selectedType || "Type :"}</Text>
+            
+            <Text>{selectedType || "Type :" }</Text>
           </TouchableOpacity>
 
               <TouchableOpacity
@@ -118,7 +124,7 @@ const dispatch = useDispatch();
               </TouchableOpacity>
 
           <TextInput onChangeText={(value) => setBirthday(value)} value={birthday} style={styles.input} placeholder="Date de naissance" />
-          <TextInput onChangeText={(value) => setCouleur(value)} value={couleur} style={styles.input} placeholder="couleur :" />
+          <TextInput onChangeText={(value) => setCouleur(value)} value={couleur} style={styles.input} placeholder="Couleur :" />
 
               <TouchableOpacity
                 style={styles.input}
@@ -165,7 +171,9 @@ const dispatch = useDispatch();
 
           <TextInput onChangeText={(value) => setDescription(value)} value={description} style={styles.input} placeholder="Description :" />
         </View>
+        {animalProfilError && <Text style={styles.error}>Merci de renseigner tous les champs obligatoires *</Text> }
       </View>
+      
       <View style={styles.buttonContainer}>
       <TouchableOpacity onPress={handleTerminer} style={styles.button}>
         <Text style={styles.buttonText}>Terminer</Text>
@@ -371,13 +379,14 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    minWidth: 500,
+    minWidth: '100%',
     height: 40,
     borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    justifyContent: 'center',
   },
   inputContainer: {
     width: "80%",
@@ -411,14 +420,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 20,
     flex: 1,
+    marginTop: '10%',
   },
   modalOption: {
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    
   },
   modalOptionText: {
     fontSize: 16,
+  },
+  error: {
+    marginTop: 5,
+    marginBottom: 5,
+    color: 'red',
   },
 });
 
