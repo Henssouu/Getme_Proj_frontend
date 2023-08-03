@@ -24,9 +24,9 @@ const HomeScreen = () => {
 
   const pet = [];
     
-  for (let i=0; i<user.animal.length; i++){
-    console.log(user.animal[i].type)
-  }
+  // for (let items of user.animal){
+  //   return pet.push(items.nom)
+  // }
   
 
 
@@ -51,6 +51,7 @@ const HomeScreen = () => {
       {/* Logout Button */}
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
         <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
+        {pet}
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 
-const ProfilUserInfoScreen = () => {
+const ProfilUserAnimalScreen = () => {
   const user = useSelector((state) => state.user.value);
 
  
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfilUserInfoScreen;
+export default ProfilUserAnimalScreen ;

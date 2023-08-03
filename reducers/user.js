@@ -26,13 +26,14 @@ export const userSlice = createSlice({
       state.value.adresse = adresse;
        
     },
-    logout: (state) => {
+    logout: (state, action) => {
       state.value.token = '';
       state.value.email = null;
       state.value.nom = null;
       state.value.prenom = null;
       state.value.pseudo = null;
       state.value.adresse = null;
+      state.value.animal = state.value.animal.filter(e => e.nom !== action.payload.nom);
     },
     addAnimal: (state, action) => {
       state.value.animal.push(action.payload.animal); 
