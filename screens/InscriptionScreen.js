@@ -23,7 +23,6 @@ function InscriptionScreen(props)  {
 
   const [signUpEmail, setSignUpEmail] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
-  const [signUpBirthday, setSignUpBirthday] = useState('');
   const [emailError, setEmailError] = useState(false);
 
 
@@ -36,14 +35,13 @@ function InscriptionScreen(props)  {
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signup`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email: signUpEmail, password: signUpPassword, birthday: signUpBirthday }),
+			body: JSON.stringify({ email: signUpEmail, password: signUpPassword}),
 		}).then(response => response.json())
 			.then(data => {
 				if (data.result && EMAIL_REGEX.test(signUpEmail)) {
-          dispatch(login({ email: signUpEmail, birthday: signUpBirthday, token: data.token }));
+          dispatch(login({ email: signUpEmail, token: data.token }));
           setSignUpEmail('');
 					setSignUpPassword('');
-					setSignUpBirthday('');
           props.closeParentModal()  // Inverse data flow;
           navigation.navigate('ProfilUserScreen');		
          
@@ -69,7 +67,6 @@ function InscriptionScreen(props)  {
           placeholder="Mot de passe"
           secureTextEntry={true}
           onChangeText={(value) => setSignUpPassword(value)} value={signUpPassword} />
-        <TextInput style={styles.input} placeholder="Date de naissance" onChangeText={(value) => setSignUpBirthday(value)} value={signUpBirthday} />
       </View>
 
       {emailError && <Text style={styles.error}>Adresse email incorrect ou compte déjà existant</Text> }

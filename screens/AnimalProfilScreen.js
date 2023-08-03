@@ -42,7 +42,6 @@ const [sexe, setSexe] = useState('');
 const [castré, setCastré] = useState('');
 const [tatouage, setTatouage] = useState('');
 const [puce, setPuce] = useState('');
-const [birthday, setBirthday] = useState('');
 const [description, setDescription] = useState('');
 const [animalProfilError, setAnimalProfilError] = useState(false);
 // const [photo, setPhoto] = useState('');
@@ -66,7 +65,7 @@ const navigation = useNavigation();
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/animaux/newanimal`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ token: user.token,type,nom,taille,couleur,poil,sexe,castré,tatouage,puce,birthday,description }),
+			body: JSON.stringify({ token: user.token,type,nom,taille,couleur,poil,sexe,castré,tatouage,puce,description }),
 		}).then(response => response.json())
 			.then(data => {
         console.log(data)
@@ -81,7 +80,6 @@ const navigation = useNavigation();
           setCastré('');
           setTatouage('');
           setPuce('');
-          setBirthday('');
           setDescription('');
           navigation.navigate('HomeScreen');
 }else{
@@ -123,7 +121,6 @@ const navigation = useNavigation();
                 <Text>{selectedTaille || "Taille :"}</Text>
               </TouchableOpacity>
 
-          <TextInput onChangeText={(value) => setBirthday(value)} value={birthday} style={styles.input} placeholder="Date de naissance" />
           <TextInput onChangeText={(value) => setCouleur(value)} value={couleur} style={styles.input} placeholder="Couleur :" />
 
               <TouchableOpacity

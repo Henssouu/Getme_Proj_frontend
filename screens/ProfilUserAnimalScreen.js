@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 const ProfilUserInfoScreen = () => {
   const user = useSelector((state) => state.user.value);
 
+ 
   return (
     <View style={styles.container}>
       {user ? (

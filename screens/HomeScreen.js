@@ -11,12 +11,24 @@ import { logout } from '../reducers/user';
 
 
 
+
 const HomeScreen = () => {
+
 
   const user = useSelector((state) => state.user.value);
   console.log(user);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+
+
+  const pet = [];
+    
+  for (let i=0; i<user.animal.length; i++){
+    console.log(user.animal[i].type)
+  }
+  
+
 
   const handleLogout = () => {
     dispatch(logout());

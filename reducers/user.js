@@ -4,7 +4,6 @@ const initialState = {
   value: {
     token: '',
     email: null,
-    birthday: null,
     nom: null,
     prenom: null,
     pseudo: null,
@@ -18,10 +17,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      const { token, email, birthday, nom, prenom, pseudo, adresse } = action.payload;
+      const { token, email,nom, prenom, pseudo, adresse } = action.payload;
       state.value.token = token;
       state.value.email = email;
-      state.value.birthday = birthday;
       state.value.nom = nom;
       state.value.prenom = prenom;
       state.value.pseudo = pseudo;
@@ -31,7 +29,6 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.value.token = '';
       state.value.email = null;
-      state.value.birthday = null;
       state.value.nom = null;
       state.value.prenom = null;
       state.value.pseudo = null;
