@@ -7,28 +7,30 @@ import { useNavigation } from '@react-navigation/native';
 import { logout } from '../reducers/user';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import ProfilUserInfoScreen from './ProfilUserInfoScreen';
 import ProfilUserAnimalScreen from './ProfilUserAnimalScreen';
 import MapScreen from './MapScreen'; // Add the MapScreen import here
 
 const Tab = createBottomTabNavigator();
 
-const ProfileScreen = ({ handleLogout }) => {
+const ProfileScreen = () => {
+ 
   const user = useSelector((state) => state.user.value);
-  console.log(user);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-console.log("krypto", user)
-
-  const pet = [];
-    
-  // for (let items of user.animal){
-  //   return pet.push(items.nom)
-  // }
   
 
+const animal = user.animal.map((data, i) => {
+  return <ProfilUserAnimalScreen {...data} key={i} />;
+})
+
+
+
+
+
+console.log("krypto", user)
+ 
 
   const handleLogout = () => {
     dispatch(logout());
@@ -46,12 +48,12 @@ console.log("krypto", user)
       </View>
 
       <View style={styles.userInfoContainer}>
-        <ProfilUserAnimalScreen />
+        {animal}
       </View>
       {/* Logout Button */}
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
         <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
-        {pet}
+        
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
 

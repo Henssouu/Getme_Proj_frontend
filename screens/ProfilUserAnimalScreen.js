@@ -2,25 +2,29 @@ import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
-const ProfilUserAnimalScreen = () => {
+const ProfilUserAnimalScreen = (props) => {
+
+ 
+
   const user = useSelector((state) => state.user.value);
-  const animal = user?.animal?.[0]; //chaining operator
+
+
  
   return (
     <View style={styles.container}>
       {user ? (
         <ScrollView>
         <View style={styles.userDataContainer}>
-        <Text style={styles.userName}>{animal?.nom}</Text>
-            <Text style={styles.userPseudo}>Type: {animal?.type}</Text>
-            <Text style={styles.userAddress}>Taille: {animal?.taille}</Text>
-            <Text style={styles.userAddress}>Couleur: {animal?.couleur}</Text>
-            <Text style={styles.userAddress}>Poil: {animal?.poil}</Text>
-            <Text style={styles.userAddress}>Sexe: {animal?.sexe}</Text>
-            <Text style={styles.userAddress}>Castré: {animal?.castré}</Text>
-            <Text style={styles.userAddress}>Tatouage: {animal?.tatouage}</Text>
-            <Text style={styles.userAddress}>Puce: {animal?.puce}</Text>
-            <Text style={styles.userAddress}>Description: {animal?.description}</Text>
+        <Text style={styles.userName}>{props.nom}</Text>
+            <Text style={styles.userPseudo}>Type: {props.type}</Text>
+            <Text style={styles.userAddress}>Taille: {props.taille}</Text>
+            <Text style={styles.userAddress}>Couleur: {props.couleur}</Text>
+            <Text style={styles.userAddress}>Poil: {props.poil}</Text>
+            <Text style={styles.userAddress}>Sexe: {props.sexe}</Text>
+            <Text style={styles.userAddress}>Castré: {props.castré}</Text>
+            <Text style={styles.userAddress}>Tatouage: {props.tatouage}</Text>
+            <Text style={styles.userAddress}>Puce: {props.puce}</Text>
+            <Text style={styles.userAddress}>Description: {props.description}</Text>
           {/* affiche d'autre information si besoin */}
         </View>
       </ScrollView>

@@ -17,13 +17,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      const { token, email,nom, prenom, pseudo, adresse } = action.payload;
+      const { token, email,nom, prenom, pseudo, adresse,animal } = action.payload;
       state.value.token = token;
       state.value.email = email;
       state.value.nom = nom;
       state.value.prenom = prenom;
       state.value.pseudo = pseudo;
       state.value.adresse = adresse;
+      state.value.animal = animal;
        
     },
     logout: (state, action) => {
@@ -33,7 +34,7 @@ export const userSlice = createSlice({
       state.value.prenom = null;
       state.value.pseudo = null;
       state.value.adresse = null;
-      state.value.animal = state.value.animal.filter(e => e.token !== action.payload);
+      state.value.animal = [];
     },
     addAnimal: (state, action) => {
       state.value.animal.push(action.payload.animal); 
