@@ -25,7 +25,6 @@ const ProfilUserScreen = () => {
   const [userProfilError, setUserProfilError] = useState(false);
 
   const user = useSelector((state) => state.user.value);
-  const error = userProfilError && <Text style={styles.error}>Merci de renseigner tous les champs obligatoires *</Text> 
   //condition pour passer du screen "AnimalProfil" ou "HomeScreen"
   const switchToAnimal = () => {
 
