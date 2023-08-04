@@ -25,7 +25,7 @@ function HomeStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+       <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ProfilUserScreen" component={ProfilUserScreen} options={{ headerShown: false }} />
        <Stack.Screen name="AnimalProfilScreen" component={AnimalProfilScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ProfilUserInfoScreen" component={ProfilUserInfoScreen} options={{ headerShown: false }} /> 

@@ -25,7 +25,7 @@ const ProfilUserScreen = () => {
   const [userProfilError, setUserProfilError] = useState(false);
 
   const user = useSelector((state) => state.user.value);
-  const error = userProfilError && <Text style={styles.error}>Merci de renseigner tous les champs obligatoires *</Text> 
+
   //condition pour passer du screen "AnimalProfil" ou "HomeScreen"
   const switchToAnimal = () => {
 
@@ -36,7 +36,7 @@ const ProfilUserScreen = () => {
 		}).then(response => response.json())
 			.then(data => {
         if (data.result) {
-          dispatch(login({token: user.token, email: user.email, nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse}));
+          dispatch(login({token: user.token, email: user.email, nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse, animal: []}));
           setNomUser('');
           setPrenomUser('');
           setPseudo('');

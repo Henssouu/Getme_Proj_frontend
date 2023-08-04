@@ -28,7 +28,7 @@ function InscriptionScreen(props)  {
 
   const navigation = useNavigation();
   const user = useSelector((state) => state.user.value);
-  console.log(user);
+  console.log('pageConnexion', user);
 
   //Gère la navigation vers un autre screen au click
   const handleProfil = () => {
@@ -39,7 +39,7 @@ function InscriptionScreen(props)  {
 		}).then(response => response.json())
 			.then(data => {
 				if (data.result && EMAIL_REGEX.test(signUpEmail)) {
-          dispatch(login({ email: signUpEmail, token: data.token }));
+          dispatch(login({ email: signUpEmail, token: data.token, animal: []}));
           setSignUpEmail('');
 					setSignUpPassword('');
           props.closeParentModal()  // Inverse data flow;

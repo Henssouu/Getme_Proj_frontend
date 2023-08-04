@@ -9,7 +9,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProfilUserInfoScreen from './ProfilUserInfoScreen';
 import ProfilUserAnimalScreen from './ProfilUserAnimalScreen';
-import MapScreen from './MapScreen'; // Add the MapScreen import here
+import MapScreen from './MapScreen'; 
+
 
 const Tab = createBottomTabNavigator();
 
@@ -18,15 +19,6 @@ const ProfileScreen = () => {
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  
-
-
-
-const animal = user.animal.map((data, i) => {
-  return <ProfilUserAnimalScreen {...data} key={i} />;
-})
-
 
 
 
@@ -46,11 +38,11 @@ console.log("krypto", user)
     <View style={styles.container}>
       {/* Profile user info */}
       <View style={styles.userInfoContainer}>
-        <ProfilUserInfoScreen />
+        {/* <ProfilUserInfoScreen /> */}
       </View>
 
       <View style={styles.userInfoContainer}>
-        {animal}
+        {/* <ProfilUserAnimalScreen /> */}
       </View>
       {/* Logout Button */}
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
@@ -59,7 +51,10 @@ console.log("krypto", user)
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
 
-      <View style={styles.plusButton}><FontAwesomeIcon icon={faCirclePlus} style={styles.faCirclePlus} />
+      <View style={styles.plusButtonContainer}>
+        <TouchableOpacity style={styles.plusButton}>
+          <FontAwesomeIcon icon={faCirclePlus} size={40} style={styles.faCirclePlus} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -81,13 +76,14 @@ const HomeScreen = () => {
     <Tab.Navigator>
       <Tab.Screen
         name="Profile"
-        component={() => <ProfileScreen handleLogout={handleLogout} />}
         options={{
           tabBarIcon: ({ color, size }) => (
             <FontAwesomeIcon icon={faHouse} size={size} style={{ color }} />
           ),
         }}
-      />
+      >
+        {() => <ProfileScreen handleLogout={handleLogout} />}
+      </Tab.Screen>
       <Tab.Screen
         name="Map"
         component={MapScreen}
@@ -136,12 +132,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 10,
   },
+  plusButtonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginBottom: 15,
+    marginRight: 15,
+    marginBottom: -80,
+  },
   plusButton: {
-    textAlign:'start',
-    justifyContent: 'start',
-  }, 
+    backgroundColor: 'rgba(70, 158, 180, 0.2)',
+    borderRadius: 50,
+    padding: 10,
+  },
   faCirclePlus: {
-    color: "#469eb4",
+  color: 'rgba(70, 158, 180, 0.5)', 
   },
 });
 
