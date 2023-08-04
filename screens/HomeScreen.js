@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import { logout } from '../reducers/user';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import ProfilUserInfoScreen from './ProfilUserInfoScreen';
 import ProfilUserAnimalScreen from './ProfilUserAnimalScreen';
 import MapScreen from './MapScreen'; 
@@ -15,8 +14,32 @@ import MapScreen from './MapScreen';
 
 const Tab = createBottomTabNavigator();
 
-const ProfileScreen = ({ handleLogout }) => {
+const ProfileScreen = () => {
+ 
   const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  
+
+const animal = user.animal.map((data, i) => {
+  return <ProfilUserAnimalScreen {...data} key={i} />;
+})
+
+
+
+
+
+console.log("krypto", user)
+ 
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'SignIn' }],
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -31,6 +54,7 @@ const ProfileScreen = ({ handleLogout }) => {
       {/* Logout Button */}
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
         <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
+        
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
 

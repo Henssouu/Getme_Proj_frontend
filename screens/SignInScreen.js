@@ -57,6 +57,8 @@ function SignInScreen() {
         </View>
         <TextInput
           style={styles.input}
+          autoCapitalize='none'
+          keyboardType='email-address'
           placeholder="Email"
           placeholderTextColor="#FFF"
         //   récupèration de l'email renseigné dans le TextInput pour le sotcker dans le state signInEmail
