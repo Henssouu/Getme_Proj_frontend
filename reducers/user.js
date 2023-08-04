@@ -27,7 +27,7 @@ export const userSlice = createSlice({
       state.value.animal = animal;
        
     },
-    logout: (state, action) => {
+    logout: (state) => {
       state.value.token = '';
       state.value.email = null;
       state.value.nom = null;

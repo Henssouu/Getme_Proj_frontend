@@ -1,32 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
+import ProfilUserAnimalScreen from './ProfilUserAnimalScreen';
+import ProfilUserInfoScreen from './ProfilUserInfoScreen';
 
 const ProfilScreen = () => {
   const user = useSelector((state) => state.user.value);
-  const animal = user?.animal?.[0]; //chaining operator
+
+  const animal = user.animal.map((data, i) => {
+    return <ProfilUserAnimalScreen {...data} key={i} />;
+  })
+  
 
   return (
     <View style={styles.container}>
       {user ? (
         <ScrollView>
           <View style={styles.userDataContainer}>
-            <Text style={styles.userName}>{user.nom} {user.prenom}</Text>
-            <Text style={styles.userPseudo}>{user.pseudo}</Text>
-            <Text style={styles.userAddress}>{user.adresse}</Text>
+          <ProfilUserInfoScreen />
           </View>
           {animal ? (
             <View style={styles.animalDataContainer}>
-              <Text style={styles.animalName}>{animal.nom}</Text>
-              <Text style={styles.animalType}>Type: {animal.type}</Text>
-              <Text style={styles.animalInfo}>Taille: {animal.taille}</Text>
-              <Text style={styles.animalInfo}>Couleur: {animal.couleur}</Text>
-              <Text style={styles.animalInfo}>Poil: {animal.poil}</Text>
-              <Text style={styles.animalInfo}>Sexe: {animal.sexe}</Text>
-              <Text style={styles.animalInfo}>Castré: {animal.castré}</Text>
-              <Text style={styles.animalInfo}>Tatouage: {animal.tatouage}</Text>
-              <Text style={styles.animalInfo}>Puce: {animal.puce}</Text>
-              <Text style={styles.animalInfo}>Description: {animal.description}</Text>
+            {animal}
             </View>
           ) : (
             <ActivityIndicator size="large" color="blue" />

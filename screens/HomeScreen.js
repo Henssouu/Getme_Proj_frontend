@@ -20,13 +20,6 @@ const ProfileScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  
-
-const animal = user.animal.map((data, i) => {
-  return <ProfilUserAnimalScreen {...data} key={i} />;
-})
-
-
 
 
 
