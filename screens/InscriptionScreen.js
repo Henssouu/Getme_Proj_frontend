@@ -1,58 +1,80 @@
+
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import {
-  Image,
-  ImageBackground,
   View,
   Text,
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
   StyleSheet,
-  Modal,
+  Platform,
 } from "react-native";
-import ProfilUserScreen from "../screens/ProfilUserScreen";
+import { useDispatch } from 'react-redux';
 import { login } from "../reducers/user";
-import { useDispatch, useSelector } from 'react-redux';
+import * as Location from 'expo-location';
 
-
-function InscriptionScreen(props)  {
-
+function InscriptionScreen(props) {
   const dispatch = useDispatch();
   const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const [signUpEmail, setSignUpEmail] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
   const [emailError, setEmailError] = useState(false);
-
+  const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
-  const user = useSelector((state) => state.user.value);
-  console.log('pageConnexion', user);
 
-  //Gère la navigation vers un autre screen au click
-  const handleProfil = () => {
-    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signup`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email: signUpEmail, password: signUpPassword}),
-		}).then(response => response.json())
-			.then(data => {
-				if (data.result && EMAIL_REGEX.test(signUpEmail)) {
-          dispatch(login({ email: signUpEmail, token: data.token, animal: []}));
-          setSignUpEmail('');
-					setSignUpPassword('');
-          props.closeParentModal()  // Inverse data flow;
-          navigation.navigate('ProfilUserScreen');		
-         
-				} else {
-          setEmailError(true);
-        }
+  const handleProfil = async () => {
+    setLoading(true);
+
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+
+      const userData = {
         
-			});
+        email: signUpEmail,
+        password: signUpPassword,
+        latitude:location.coords.latitude,
+        longitude:location.coords.longitude,
+      };
 
-      
-    };
+      const signupResponse = await fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData,),
+      });
+
+      const data = await signupResponse.json();
+
+      const coordinatesData = {
+        token: data.token,
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+      if (data.result && EMAIL_REGEX.test(signUpEmail)) {
+        
+        dispatch(login({ email: signUpEmail, token: data.token,longitude:coordinatesData.longitude,latitude:coordinatesData.latitude, animal: [] }));
+        setSignUpEmail('');
+        setSignUpPassword('');
+        props.closeParentModal();
+    
+        navigation.navigate('ProfilUserScreen');
+      } else {
+        setEmailError(true);
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -61,7 +83,7 @@ function InscriptionScreen(props)  {
     >
       <Text style={styles.title}>Saisir vos informations</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="Adresse email"  onChangeText={(value) => setSignUpEmail(value)} value={signUpEmail} />
+        <TextInput style={styles.input} keyboardType= "email-address"placeholder="Adresse email"  onChangeText={(value) => setSignUpEmail(value)} value={signUpEmail} />
         <TextInput
           style={styles.input}
           placeholder="Mot de passe"
@@ -71,8 +93,8 @@ function InscriptionScreen(props)  {
 
       {emailError && <Text style={styles.error}>Adresse email incorrect ou compte déjà existant</Text> }
       {/* active la fonction handleProfil au click */}
-      <TouchableOpacity style={styles.button} onPress={handleProfil}>
-        <Text style={styles.buttonText}>S'enregistrer</Text>       
+      <TouchableOpacity style={styles.button} onPress={handleProfil} disabled={loading}>
+        <Text style={styles.buttonText}>{loading ? 'Loading...' : 'S\'enregistrer'}</Text>       
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );

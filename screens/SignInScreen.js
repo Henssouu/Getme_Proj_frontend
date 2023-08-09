@@ -5,6 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, ImageBackgr
 import InscriptionScreen from '../screens/InscriptionScreen';
 import { login } from '../reducers/user';
 
+
 function SignInScreen() {
   const dispatch = useDispatch();
   const [isSignUpModalVisible, setSignUpModalVisible] = useState(false);
@@ -31,10 +32,11 @@ function SignInScreen() {
       .then(data => {
         if (data.result) {
 
-          
+          console.log("user sign in", data)
           dispatch(login(data.user)); // Dispatch the login action with the entire data object
           setSignInEmail('');
           setSignInPassword('');
+          // passe au screen homeScreen
           navigation.navigate('HomeScreen');
         } else {
           setUserError(true);

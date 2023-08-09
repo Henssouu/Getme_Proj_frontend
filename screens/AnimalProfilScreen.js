@@ -17,6 +17,7 @@ import { addAnimal } from "../reducers/user";
 import { useDispatch, useSelector } from 'react-redux';
 
 
+
 const AnimalProfilScreen = () => {
   const [tailleModalVisible, setTailleModalVisible] = useState(false);
   const [selectedTaille, setSelectedTaille] = useState("");
@@ -81,6 +82,7 @@ const navigation = useNavigation();
           setTatouage('');
           setPuce('');
           setDescription('');
+          //passe au screen "HomeScreen"
           navigation.navigate('HomeScreen');
 }else{
   setAnimalProfilError(true);        

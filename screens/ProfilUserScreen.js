@@ -24,27 +24,31 @@ const ProfilUserScreen = () => {
   const [adresse, setAdresse] = useState('');
   const [userProfilError, setUserProfilError] = useState(false);
 
-  const user = useSelector((state) => state.user.value);
-  const error = userProfilError && <Text style={styles.error}>Merci de renseigner tous les champs obligatoires *</Text> 
+  const user = useSelector((state) => state.user.value); 
   //condition pour passer du screen "AnimalProfil" ou "HomeScreen"
+
+  console.log(user)
   const switchToAnimal = () => {
 
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/${user.token}`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse }),
+			body: JSON.stringify({token: user.token, nom: nomUser, prenom: prenomUser, pseudo: pseudo,longitude:user.longitude,latitude:user.latitude, adresse: adresse }),
 		}).then(response => response.json())
 			.then(data => {
+        console.log("data:",data)
         if (data.result) {
-          dispatch(login({token: user.token, email: user.email, nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse, animal: []}));
+          dispatch(login({token: user.token, email: user.email, nom: nomUser, prenom: prenomUser,longitude:user.longitude,latitude:user.latitude, pseudo: pseudo, adresse: adresse, animal: []}));
           setNomUser('');
           setPrenomUser('');
           setPseudo('');
           setAdresse('');
          
           if (hasAnimal) {
+            // passe au screen "AnimalProfilScreen"
             navigation.navigate("AnimalProfilScreen");
           } else {
+            //passe au screen "HomeScreen"
             navigation.navigate("HomeScreen");
           }
         

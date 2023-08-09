@@ -1,38 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHouse, faMap, faEnvelope, faPaw, faRightFromBracket, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { logout } from '../reducers/user';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import ProfilUserInfoScreen from './ProfilUserInfoScreen';
-import ProfilUserAnimalScreen from './ProfilUserAnimalScreen';
-import MapScreen from './MapScreen'; 
 
 
-const Tab = createBottomTabNavigator();
 
-const ProfileScreen = () => {
+const HomeScreen = () => {
  
   const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-
-
-
-console.log("krypto", user)
  
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'SignIn' }],
-    });
-  };
+const handleLogout = () => {
+  dispatch(logout());
+  navigation.navigate('SignInScreen');
+};
 
   return (
     <View style={styles.container}>
@@ -57,44 +42,6 @@ console.log("krypto", user)
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
-
-const HomeScreen = () => {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'SignIn' }],
-    });
-  };
-
-  return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Profile"
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faHouse} size={size} style={{ color }} />
-          ),
-        }}
-      >
-        {() => <ProfileScreen handleLogout={handleLogout} />}
-      </Tab.Screen>
-      <Tab.Screen
-        name="Map"
-        component={MapScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesomeIcon icon={faMap} size={size} style={{ color }} />
-          ),
-        }}
-      />
-      {/* Add other screens here */}
-    </Tab.Navigator>
   );
 };
 
