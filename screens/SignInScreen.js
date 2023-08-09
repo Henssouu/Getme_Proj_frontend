@@ -36,8 +36,7 @@ function SignInScreen() {
           dispatch(login(data.user)); // Dispatch the login action with the entire data object
           setSignInEmail('');
           setSignInPassword('');
-          // passe au screen homeScreen
-          navigation.navigate('HomeScreen');
+          navigation.navigate('TabNavigator');
         } else {
           setUserError(true);
         }
@@ -59,7 +58,6 @@ function SignInScreen() {
         </View>
         <TextInput
           style={styles.input}
-          autoCapitalize='none'
           keyboardType='email-address'
           placeholder="Email"
           placeholderTextColor="#FFF"

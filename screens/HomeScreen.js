@@ -1,99 +1,240 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect }  from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Pressable, Modal, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faRightFromBracket, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket, faCirclePlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { logout } from '../reducers/user';
+import { TextInput } from 'react-native-gesture-handler';
+import { loadPosts, addPost } from '../reducers/post';
+import LastPostScreen from './LastPostScreen';
 
 
 
 const HomeScreen = () => {
+
+const user = useSelector((state) => state.user.value);
+const dispatch = useDispatch();
+const navigation = useNavigation();
+const [isModalVisible, setModalVisible] = useState(false);
+const [newPost, setNewPost] = useState('');
+
+
+const handleProfil = () => {
+console.log('ok')
+}
+
+
  
-  const user = useSelector((state) => state.user.value);
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
- 
-const handleLogout = () => {
-  dispatch(logout());
-  navigation.navigate('SignInScreen');
-};
+
+  useEffect(() => {
+    if (!user.token) {
+      return;
+    }
+
+    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/posts/all/${user.token}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log("j'ai fetché", data)
+   dispatch(loadPosts(data.data));
+      });
+  }, []);
+
+  const handleSubmit = () => {
+    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/posts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: user.token, content: newPost}),
+    }).then(response => response.json())
+      .then(data => {
+        console.log('log2',data)
+        if (data.result) {
+          const createdPost = { ...data.content, author: user };
+          dispatch(addPost(createdPost));
+          setNewPost('');
+          setModalVisible(false);
+        }
+      });
+  };
+
+
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigation.navigate('SignIn')
+  };
+
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   return (
+<ScrollView>
     <View style={styles.container}>
-      {/* Profile user info */}
-      <View style={styles.userInfoContainer}>
-        {/* <ProfilUserInfoScreen /> */}
-      </View>
+      
+      <View style={styles.icon} >
+        <Pressable onPress={handleProfil}>
+      <FontAwesomeIcon  icon={faUser} size={24} style={styles.faUser} />
+      </Pressable>
 
-      <View style={styles.userInfoContainer}>
-        {/* <ProfilUserAnimalScreen /> */}
-      </View>
-      {/* Logout Button */}
-      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+      <Pressable onPress={handleLogout} style={styles.logoutButton}>
         <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
         
-        <Text style={styles.logoutButtonText}>Logout</Text>
-      </TouchableOpacity>
-
-      <View style={styles.plusButtonContainer}>
-        <TouchableOpacity style={styles.plusButton}>
-          <FontAwesomeIcon icon={faCirclePlus} size={40} style={styles.faCirclePlus} />
-        </TouchableOpacity>
+        
+      </Pressable>
+     
       </View>
+      <View><LastPostScreen /></View>
+      <View style={styles.plusButtonContainer}>
+        <Pressable onPress={toggleModal} style={styles.plusButton}>
+          <FontAwesomeIcon icon={faCirclePlus} size={40} style={styles.faCirclePlus} />
+        </Pressable>
+      </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={toggleModal}
+      >
+
+        <View style={styles.modalContainer}>
+            <TouchableOpacity onPress={toggleModal} style={styles.cancelButton}>
+              <Text style={styles.cancelButtonText}>Annuler</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.sendButton}>
+                <Text onPress={handleSubmit} style={styles.sendButtonText}>Envoyer</Text>
+              </TouchableOpacity>
+          </View>
+          <View style={styles.modalContent}>
+            <TextInput
+              style={styles.postInput}
+              placeholder="Quoi de neuf ?"
+              maxLength={280}
+              multiline={true}
+              blurOnSubmit={true}
+              onChangeText={(value) => setNewPost(value)}
+              value={newPost}
+            />
+           <View style={styles.contentCompteur}>
+            <Text>{newPost.length}/280</Text>
+          </View>
+          </View>
+       
+      </Modal>
+     
     </View>
+    </ScrollView>
+
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    padding: 20,
-    paddingBottom: '15%',
+
   },
-  userInfoContainer: {
-    position: 'absolute',
-    top: 70,
-    right: '34.5%',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  icon: {
-    color: 'black',
-  },
+ 
+
   logoutButton: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 5,
-    marginTop: 30,
+ 
   },
   logoutButtonText: {
     fontSize: 18,
-    marginLeft: 10,
+    textAlign: 'center',
+    
   },
   plusButtonContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginBottom: 15,
-    marginRight: 15,
-    marginBottom: -80,
+    justifyContent: 'flex',
+    paddingRight: '10%',
+    marginBottom: '25%',
+ 
+    
   },
   plusButton: {
     backgroundColor: 'rgba(70, 158, 180, 0.2)',
     borderRadius: 50,
-    padding: 10,
+ 
+    
+    
   },
   faCirclePlus: {
   color: 'rgba(70, 158, 180, 0.5)', 
+  },
+  icon : {
+    marginTop: '10%',
+    paddingTop: '2%',
+    flexDirection: 'row',
+    alignItems: 'start',
+    justifyContent: 'space-between',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    backgroundColor: '#ec6e5b',
+    paddingVertical: '4%',
+    borderWidth: '1%',
+
+
+  },
+    modalContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingTop: '12%',
+      backgroundColor: 'white',
+   
+      
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    paddingLeft: '8%',
+    paddingRight: '8%',
+    paddingTop: '2%',
+   borderRadius: 8,
+    height: '100%',
+  },
+  postInput: {
+    fontSize: 18,
+    padding: '1%',
+    marginBottom: '2%',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    height: '20%',
+  },
+  cancelButton: {
+    backgroundColor: 'gray',
+    padding: 12,
+    borderRadius: 8,
+    flex: 1,
+    marginRight: 20,
+    marginLeft: '8%',
+  },
+  cancelButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white',
+  },
+  sendButton: {
+    backgroundColor: '#1DA1F2',
+    padding: 12,
+    borderRadius: 8,
+    flex: 1,
+    marginLeft: 10,
+    marginRight: '8%',
+  },
+  sendButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white',
+  },
+  contentCompteur: {
+    flex: 1,
+  
   },
 });
 

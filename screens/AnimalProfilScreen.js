@@ -13,9 +13,11 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 // import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
-import { addAnimal } from "../reducers/user";
+import { addAnimal, addAnimalPhoto } from "../reducers/user";
 import { useDispatch, useSelector } from 'react-redux';
 
+import * as ImagePicker from 'expo-image-picker';
+import { AntDesign } from '@expo/vector-icons';
 
 
 const AnimalProfilScreen = () => {
@@ -45,7 +47,8 @@ const [tatouage, setTatouage] = useState('');
 const [puce, setPuce] = useState('');
 const [description, setDescription] = useState('');
 const [animalProfilError, setAnimalProfilError] = useState(false);
-// const [photo, setPhoto] = useState('');
+const [image, setImage] = useState(null);
+
 const dispatch = useDispatch();
 const user = useSelector((state) => state.user.value);
 const navigation = useNavigation();
@@ -59,18 +62,63 @@ const navigation = useNavigation();
     setModalState(false);
   };
 
-  console.log(user);
+
+ 
+
+  const addImage= async() => {
+    let _image = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4,3],
+        quality: 1,
+      });
+      console.log('test',_image);
+        setImage(_image.uri);
+       
+  
+  };
+
+
+
+
+console.log('ok',image);
 
 
   const handleTerminer = () => {
+
+    
+  const formData = new FormData();
+  console.log("lolilol", image)
+    formData.append('photoFromFront', {
+      uri: image,
+      name: 'photo.jpg',
+      type: 'image/jpeg',
+    });
+    
+   
+
+
+
+
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/animaux/newanimal`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ token: user.token,type,nom,taille,couleur,poil,sexe,castré,tatouage,puce,description }),
+			body: JSON.stringify({ token: user.token,type,nom,taille,couleur,poil,sexe,castré,tatouage,puce,description,animalPhoto: image }),
 		}).then(response => response.json())
 			.then(data => {
-        console.log(data)
+        console.log('test', data)
+ 
+        fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/animalimage/upload`, {
+          method: 'POST',
+          body: formData,
+         }).then((response) => response.json())
+          .then((data) => {
+           setImage(data.url);
+         });
+
+        
          if(data.result){
+
           dispatch(addAnimal({animal: data.animal}));
           setType('');
           setNom('');
@@ -82,11 +130,13 @@ const navigation = useNavigation();
           setTatouage('');
           setPuce('');
           setDescription('');
-          //passe au screen "HomeScreen"
-          navigation.navigate('HomeScreen');
+          setImage('');
+          navigation.navigate('TabNavigator');
 }else{
   setAnimalProfilError(true);        
 }
+
+
    
   })
 }
@@ -102,7 +152,19 @@ const navigation = useNavigation();
       <Text style={styles.title}>Entrer le profil de votre animal</Text>
       </View>
       <View style={styles.inputContainer}>
-        <View>{/*photo*/}</View>
+      <View style={styles.emplacementImage}>
+      <View style={styles.containerImage}>
+                {
+                    image  && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                }
+                    <View style={styles.uploadBtnContainer}>
+                        <TouchableOpacity onPress={addImage} style={styles.uploadBtn} >
+                            <Text>{image ? 'Edit' : 'Ajouter'} Image</Text>
+                            <AntDesign name="camera" size={20} color="black" />
+                        </TouchableOpacity>
+                    </View>
+                    </View>
+                    </View>
   
         <TextInput onChangeText={(value) => setNom(value)} value={nom} style={styles.input} placeholder="Nom" />
         <View style={styles.inputBlock}>
@@ -436,6 +498,33 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: 'red',
   },
+  containerImage:{
+    elevation:2,
+    height:200,
+    width:200,
+    backgroundColor:'#efefef',
+    position:'relative',
+    borderRadius:999,
+    overflow:'hidden',
+},
+uploadBtnContainer:{
+    opacity:0.7,
+    position:'absolute',
+    right:0,
+    bottom:0,
+    backgroundColor:'lightgrey',
+    width:'100%',
+    height:'25%',
+},
+uploadBtn:{
+    display:'flex',
+    alignItems:"center",
+    justifyContent:'center'
+},
+emplacementImage: {
+  alignItems: 'center',
+  marginBottom: '5%',
+},
 });
 
 export default AnimalProfilScreen;

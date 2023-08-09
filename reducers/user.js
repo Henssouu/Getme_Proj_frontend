@@ -8,9 +8,12 @@ const initialState = {
     prenom: null,
     pseudo: null,
     adresse: null,
+    photo: null,
     longitude: null,
     latitude:null,
     animal: [],
+    animalPhoto: null,
+   
     wantedNotice: [],
   },
 };
@@ -20,7 +23,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      const { token, email, nom, prenom, pseudo, adresse, animal, wantedNotice,longitude,latitude } = action.payload; 
+      const { token, email, nom, prenom, pseudo, adresse,photo,  animal, wantedNotice,longitude,latitude } = action.payload; 
       state.value.token = token;
       state.value.email = email;
       state.value.nom = nom;
@@ -29,6 +32,7 @@ export const userSlice = createSlice({
       state.value.latitude=latitude;
       state.value.longitude=longitude;
       state.value.adresse = adresse;
+      state.value.photo = photo;
       state.value.animal = animal || [];
       state.value.wantedNotice = wantedNotice || []; 
     },
@@ -39,6 +43,7 @@ export const userSlice = createSlice({
       state.value.prenom = null;
       state.value.pseudo = null;
       state.value.adresse = null;
+      state.value.photo = null;
       state.value.animal = [];
       state.value.wantedNotice = []; 
     },
@@ -46,8 +51,14 @@ export const userSlice = createSlice({
       state.value.animal.push(action.payload.animal);
       
     },
+  addPhoto: (state, action) => {
+    state.value.photo = action.payload.photo;
   },
+  addAnimalPhoto: (state, action) =>{
+    state.value.animalPhoto = action.payload.animalPhoto
+  }
+}
 });
 
-export const { login, logout, addAnimal } = userSlice.actions;
+export const { login, logout, addAnimal, addPhoto, addAnimalPhoto } = userSlice.actions;
 export default userSlice.reducer;
