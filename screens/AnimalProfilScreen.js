@@ -145,15 +145,15 @@ console.log('ok',image);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
-            <View style={styles.containerWrapper}>
+      style={styles.container}>
+      
+      <View style={styles.containerWrapper}>
+      
         <View style={styles.titleContainer}>
-      <Text style={styles.title}>Entrer le profil de votre animal</Text>
-      </View>
+        <Text style={styles.title}>Entrer le profil de votre animal</Text>
+        </View>
       <View style={styles.inputContainer}>
-      <View style={styles.emplacementImage}>
-      <View style={styles.containerImage}>
+        <View style={styles.containerImage}>
                 {
                     image  && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
                 }
@@ -162,21 +162,20 @@ console.log('ok',image);
                             <Text>{image ? 'Edit' : 'Ajouter'} Image</Text>
                             <AntDesign name="camera" size={20} color="black" />
                         </TouchableOpacity>
-                    </View>
-                    </View>
-                    </View>
+      </View>
+                  
+        </View>
   
         <TextInput onChangeText={(value) => setNom(value)} value={nom} style={styles.input} placeholder="Nom" />
         <View style={styles.inputBlock}>
           <TouchableOpacity
             style={styles.input}
-            onPress={() => toggleModal(typeModalVisible, setTypeModalVisible)}
-          >
+            onPress={() => toggleModal(typeModalVisible, setTypeModalVisible)}>
             
             <Text>{selectedType || "Type :" }</Text>
           </TouchableOpacity>
 
-              <TouchableOpacity
+          <TouchableOpacity
                 style={styles.input}
                 onPress={() =>
                   toggleModal(tailleModalVisible, setTailleModalVisible)
@@ -424,9 +423,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: '15%',
   },
   titleContainer: {
     paddingHorizontal: 20,
@@ -458,6 +458,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 20,
     marginTop: 10,
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   button: {
     width: 160,
@@ -521,10 +523,7 @@ uploadBtn:{
     alignItems:"center",
     justifyContent:'center'
 },
-emplacementImage: {
-  alignItems: 'center',
-  marginBottom: '5%',
-},
+
 });
 
 export default AnimalProfilScreen;
