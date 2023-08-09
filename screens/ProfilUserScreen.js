@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,10 +9,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Image,
 } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
-import  { login } from "../reducers/user";
-
+import  { login, addPhoto } from "../reducers/user";
+import * as ImagePicker from 'expo-image-picker';
+import { AntDesign } from '@expo/vector-icons';
 
 const ProfilUserScreen = () => {
 
@@ -23,24 +26,78 @@ const ProfilUserScreen = () => {
   const [pseudo, setPseudo] = useState('');
   const [adresse, setAdresse] = useState('');
   const [userProfilError, setUserProfilError] = useState(false);
+  const [image, setImage] = useState(null);
 
   const user = useSelector((state) => state.user.value);
-  const error = userProfilError && <Text style={styles.error}>Merci de renseigner tous les champs obligatoires *</Text> 
+
+  const requestPermissions = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Permission d\'accès à la galerie refusée.');
+    }
+  };
+
+useEffect(() => {
+  requestPermissions()
+}, []);
+
+
+
   //condition pour passer du screen "AnimalProfil" ou "HomeScreen"
+  
+  const addImage= async() => {
+    
+    let _image = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4,3],
+        quality: 1,
+      });
+      console.log('test',_image.uri);
+        setImage(_image.uri);
+      
+
+  };
+
+ 
+ 
+  
+  
   const switchToAnimal = () => {
+
+    const formData = new FormData();
+    console.log("coucou", image)
+    
+    formData.append('photoFromFront', {
+      uri: image,
+      name: 'photo.jpg',
+      type: 'image/jpeg',
+    });
+    
+ 
+     
+  
 
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/${user.token}`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse }),
+			body: JSON.stringify({ nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse, photo: image }),
 		}).then(response => response.json())
 			.then(data => {
+        fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users//userimage/upload`, {
+          method: 'POST',
+          body: formData,
+         }).then((response) => response.json())
+          .then((data) => {
+           setImage(data.url);
+         });
         if (data.result) {
-          dispatch(login({token: user.token, email: user.email, nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse, animal: []}));
+          dispatch(login({token: user.token, email: user.email, nom: nomUser, prenom: prenomUser, pseudo: pseudo, adresse: adresse, photo: image, animal: []}));
           setNomUser('');
           setPrenomUser('');
           setPseudo('');
           setAdresse('');
+          setImage('');
          
           if (hasAnimal) {
             navigation.navigate("AnimalProfilScreen");
@@ -52,6 +109,9 @@ const ProfilUserScreen = () => {
           setUserProfilError(true);
          }
 
+         
+
+
   
   })
 }
@@ -62,8 +122,21 @@ const ProfilUserScreen = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <Text style={styles.title}>Compléter votre profil</Text>
+      
       <View style={styles.inputContainer}>
-        <View>{/*photo*/}</View>
+      <View style={styles.emplacementImage}>
+      <View style={styles.containerImage}>
+                {
+                    image  && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                }
+                    <View style={styles.uploadBtnContainer}>
+                        <TouchableOpacity onPress={addImage} style={styles.uploadBtn} >
+                            <Text>{image ? 'Edit' : 'Ajouter'} Image</Text>
+                            <AntDesign name="camera" size={20} color="black" />
+                        </TouchableOpacity>
+                    </View>
+                    </View>
+                    </View>
         <View style={styles.inputBlock}>
           {/*photo*/}
           <TextInput style={styles.input}  onChangeText={(value) => setNomUser(value)} value={nomUser}  placeholder="Nom:"/>
@@ -186,6 +259,33 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     color: 'red',
   },
+  containerImage:{
+    elevation:2,
+    height:200,
+    width:200,
+    backgroundColor:'#efefef',
+    position:'relative',
+    borderRadius:999,
+    overflow:'hidden',
+},
+uploadBtnContainer:{
+    opacity:0.7,
+    position:'absolute',
+    right:0,
+    bottom:0,
+    backgroundColor:'lightgrey',
+    width:'100%',
+    height:'25%',
+},
+uploadBtn:{
+    display:'flex',
+    alignItems:"center",
+    justifyContent:'center'
+},
+emplacementImage: {
+  alignItems: 'center',
+  marginBottom: '5%',
+},
 });
 
 export default ProfilUserScreen;

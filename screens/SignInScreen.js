@@ -5,6 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, ImageBackgr
 import InscriptionScreen from '../screens/InscriptionScreen';
 import { login } from '../reducers/user';
 
+
 function SignInScreen() {
   const dispatch = useDispatch();
   const [isSignUpModalVisible, setSignUpModalVisible] = useState(false);
@@ -35,7 +36,7 @@ function SignInScreen() {
           dispatch(login(data.user)); // Dispatch the login action with the entire data object
           setSignInEmail('');
           setSignInPassword('');
-          navigation.navigate('HomeScreen');
+          navigation.navigate('TabNavigator');
         } else {
           setUserError(true);
         }
@@ -57,7 +58,6 @@ function SignInScreen() {
         </View>
         <TextInput
           style={styles.input}
-          autoCapitalize='none'
           keyboardType='email-address'
           placeholder="Email"
           placeholderTextColor="#FFF"

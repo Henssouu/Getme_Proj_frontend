@@ -61,7 +61,8 @@ function InscriptionScreen(props)  {
     >
       <Text style={styles.title}>Saisir vos informations</Text>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="Adresse email"  onChangeText={(value) => setSignUpEmail(value)} value={signUpEmail} />
+        <TextInput style={styles.input}  placeholder="Adresse email" 
+          keyboardType='email-address' onChangeText={(value) => setSignUpEmail(value)} value={signUpEmail} />
         <TextInput
           style={styles.input}
           placeholder="Mot de passe"

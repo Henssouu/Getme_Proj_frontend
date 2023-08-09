@@ -42,8 +42,10 @@ const styles = StyleSheet.create({
     padding: 27,
   },
   userDataContainer: {
-    backgroundColor: '#f9f9f9',
-    padding: 20,
+    
+    paddingTop: '15%',
+    paddingLeft: '15%',
+    paddingRight: '15%',
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   animalDataContainer: {
-    backgroundColor: '#f9f9f9',
+    
     padding: 20,
     borderRadius: 10,
     shadowColor: '#000',
@@ -75,6 +77,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     marginBottom: 20,
+    minHeight: '100%',
   },
   animalName: {
     fontSize: 18,
