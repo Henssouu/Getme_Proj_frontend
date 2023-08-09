@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   },
   animalDataContainer: {
     flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f9f9f9',
     paddingBottom: '15%',
@@ -78,9 +79,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   images: {
-    width: '55%',
-    height: '100%',
-    borderRadius: '45%',
+  width: 100,
+  height: 100,
   },
   position: {
     flexDirection: 'row',

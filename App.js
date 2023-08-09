@@ -3,25 +3,18 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import userReducer from './reducers/user';
-import mapReducer from './reducers/map';
 import SignInScreen from './screens/SignInScreen';
 import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
-import ProfileScreen from './screens/ProfilScreen';
-import InscriptionScreen from './screens/InscriptionScreen';
 import ProfilUserScreen from './screens/ProfilUserScreen';
 import AnimalProfilScreen from './screens/AnimalProfilScreen';
-import MessagesScreen from './screens/MessagesScreen';
+import MessageScreen from './screens/MessageScreen';
 import ProfilUserInfoScreen from './screens/ProfilUserInfoScreen';
-// import ProfilUserAnimalScreen from './screens/ProfilUserAnimalScreen';
 import ProfilScreen from './screens/ProfilScreen'
-import { Provider } from 'react-redux';
 import user from './reducers/user';
 import post from './reducers/post';
 import map from './reducers/map';
@@ -58,7 +51,7 @@ const TabNavigator = () => {
     })}>
       <Tab.Screen name="Accueil" component={DrawerNavigator}  />
       <Tab.Screen name="Carte" component={MapScreen} />
-      <Tab.Screen name='Messages' component={MessagesScreen} />
+      <Tab.Screen name='Messages' component={MessageScreen} />
     </Tab.Navigator>
   )
 }
