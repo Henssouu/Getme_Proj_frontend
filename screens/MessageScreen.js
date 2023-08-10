@@ -12,12 +12,13 @@ import { useSelector } from "react-redux";
 const MessageScreen = () => {
   const user = useSelector((state) => state.user.value);
   const [messages, setMessages] = useState([]);
+  const [receiverUserId, setReceiverUserId] = useState("");
   const [replyContent, setReplyContent] = useState("");
 
   useEffect(() => {
     // Fetch messages for the logged-in user
     fetch(
-      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/messages/${user.token}`
+      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/messages/get-messages/${user._id}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -28,23 +29,28 @@ const MessageScreen = () => {
       });
   }, []);
 
-  const handleReply = (messageId) => {
-    // Send a reply for the specified message
+  const handleSendMessage = () => {
+    // Send a new message to the specified receiver userId
     fetch(
-      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/messages/reply-message/${messageId}`,
+      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/messages/send-message`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sender: user._id, content: replyContent }),
+        body: JSON.stringify({
+          sender: user._id,
+          receiver: receiverUserId,
+          content: replyContent,
+        }),
       }
     )
       .then((response) => response.json())
       .then((data) => {
-        // Refresh the messages after sending the reply
+        // Refresh the messages after sending the message
         setMessages(data.messages);
+        setReplyContent(""); // Clear the reply input field
       })
       .catch((error) => {
-        console.error("Error sending reply:", error);
+        console.error("Error sending message:", error);
       });
   };
 
@@ -88,6 +94,27 @@ const MessageScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.userIdInput}
+          placeholder="Destinataire..."
+          onChangeText={setReceiverUserId}
+          value={receiverUserId}
+        />
+        <TextInput
+          style={styles.replyInput}
+          placeholder="Message..."
+          onChangeText={setReplyContent}
+          value={replyContent}
+        />
+        <TouchableOpacity
+          style={styles.sendButton}
+          onPress={handleSendMessage}
+          disabled={!receiverUserId || !replyContent}
+        >
+          <Text style={styles.sendButtonText}>Envoyer</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
         data={messages}
         keyExtractor={(item) => item._id}
@@ -100,39 +127,51 @@ const MessageScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10, 
+    padding: 10,
+    marginTop: 70,
+  },
+  inputContainer: {
+    marginBottom: 10,
+  },
+  userIdInput: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    paddingHorizontal: 8,
+    marginTop: 5,
+    marginBottom: 5,
   },
   messageContainer: {
-    marginBottom: 10, 
+    marginBottom: 10,
     borderColor: "#ccc",
     borderWidth: 1,
-    padding: 8, 
+    padding: 8,
   },
   sender: {
     fontWeight: "bold",
   },
   content: {
-    marginTop: 3, 
+    marginTop: 3,
   },
   replyContainer: {
     backgroundColor: "#f5f5f5",
-    marginTop: 1, 
-    padding: 6, 
+    marginTop: 1,
+    padding: 6,
     borderRadius: 5,
   },
   replyInput: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 5,
-    paddingHorizontal: 8, 
-    marginTop: 5, 
+    paddingHorizontal: 8,
+    marginTop: 5,
   },
   sendButton: {
     backgroundColor: "blue",
-    paddingVertical: 6, 
-    paddingHorizontal: 16, 
+    paddingVertical: 6,
+    paddingHorizontal: 16,
     borderRadius: 5,
-    marginTop: 1, 
+    marginTop: 1,
     alignItems: "center",
   },
   sendButtonText: {
@@ -140,6 +179,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
 
 export default MessageScreen;

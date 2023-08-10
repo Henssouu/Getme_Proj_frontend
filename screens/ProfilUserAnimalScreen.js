@@ -14,7 +14,7 @@ const ProfilUserAnimalScreen = (props) => {
   return (
       <View style={styles.container}>
         {user ? (
-          <ScrollView>
+          <ScrollView style={{flex:1}}>
             <View style={styles.animalDataContainer}>
               <View style={styles.position}>
                 <Image style={styles.images} source={{ uri: props.animalPhoto }}></Image>
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 27,
+    
   },
   animalDataContainer: {
     flexDirection: 'column',
@@ -58,13 +59,14 @@ const styles = StyleSheet.create({
     paddingRight: '5%',
     paddingLeft: '5%',
     borderRadius: 10,
-    // shadowColor: '#000',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
     minWidth: '100%',
-    backgroundColor: '#fed0a6'
+    backgroundColor: '#fed0a6',
+   
   },
   userName: {
     fontSize: 18,
