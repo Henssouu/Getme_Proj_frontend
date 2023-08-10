@@ -79,8 +79,7 @@ export default function MapScreen() {
 const handleAddNotice = () => {
   if (!tempCoordinates || !noticeType || !noticeDescription || !noticeReward) {
     // Validation pour les champs requis
- 
-    
+    console.log('Veuillez remplir tous les champs.');
     return;
   }
 
@@ -299,8 +298,7 @@ const handleSearchNoticesInArea = () => {
   };
 
   const handleClose = () => {
-    setSelectedNotice('null');
-
+    setSelectedNotice(null);
   };
 
   const markers = user?.wantedNotice?.map((data, i) => {
