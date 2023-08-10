@@ -16,21 +16,21 @@ const MessageScreen = () => {
   const [replyContent, setReplyContent] = useState("");
 
   useEffect(() => {
-    // Fetch messages for the logged-in user
+    // Fetch les messages de l'utilisateur loggé
     fetch(
-      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/messages/get-messages/${user._id}`
+      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/messages/get-messages/${user.token}`
     )
       .then((response) => response.json())
       .then((data) => {
         setMessages(data.messages);
       })
       .catch((error) => {
-        console.error("Error fetching messages:", error);
+        console.error("Erreur pendant le fetch des messages:", error);
       });
   }, []);
 
   const handleSendMessage = () => {
-    // Send a new message to the specified receiver userId
+    // envoi un nouveau message  au destinataire en utilisant son userId
     fetch(
       `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/messages/send-message`,
       {
@@ -45,12 +45,12 @@ const MessageScreen = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        // Refresh the messages after sending the message
+        // Refresh les messages après un envoi
         setMessages(data.messages);
-        setReplyContent(""); // Clear the reply input field
+        setReplyContent(""); // vide le champs reply
       })
       .catch((error) => {
-        console.error("Error sending message:", error);
+        console.error("Erreur pendant l'envoi du message:", error);
       });
   };
 
@@ -59,7 +59,7 @@ const MessageScreen = () => {
       <View style={styles.messageContainer}>
         {item.sender && <Text style={styles.sender}>{item.sender.pseudo}</Text>}
         <Text style={styles.content}>{item.content}</Text>
-        {/* Display replies */}
+        {/* Affiche les reply */}
         {item.replies && (
           <FlatList
             data={item.replies}
@@ -74,7 +74,7 @@ const MessageScreen = () => {
             )}
           />
         )}
-        {/* Reply input field */}
+        {/* champs reply */}
         <TextInput
           style={styles.replyInput}
           placeholder="Reply..."
