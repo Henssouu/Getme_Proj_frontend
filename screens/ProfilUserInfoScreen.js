@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Image,  ImageBackground } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const ProfilUserInfoScreen = () => {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     width: 145,
     height: 150,
     borderRadius: 50,
-    marginBottom: '15%',
+    marginBottom: 15,
   },
   userPseudo: {
     color: 'rgb(114, 131, 148)',

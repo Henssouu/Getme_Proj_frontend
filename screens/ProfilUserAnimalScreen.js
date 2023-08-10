@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, ScrollView, Image, KeyboardAvoidingView } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const ProfilUserAnimalScreen = (props) => {
@@ -12,40 +12,42 @@ const ProfilUserAnimalScreen = (props) => {
 
  
   return (
-    <View style={styles.container}>
-      {user ? (
-        <ScrollView>
-        <View style={styles.animalDataContainer}>
-            <View style={styles.position}>
-            <Image style={styles.images} source={{uri: props.animalPhoto}}></Image>
-              <View style={styles.textPosition}>
-              <Text style={styles.userName}>{props.nom}</Text>
-              <Text style={styles.userPseudo}>Type: {props.type}</Text>
+      <View style={styles.container}>
+        {user ? (
+          <ScrollView style={{flex:1}}>
+            <View style={styles.animalDataContainer}>
+              <View style={styles.position}>
+                <Image style={styles.images} source={{ uri: props.animalPhoto }}></Image>
+                <View style={styles.textPosition}>
+                  <Text style={styles.userName}>{props.nom}</Text>
+                  <Text style={styles.userPseudo}>Type: {props.type}</Text>
+                </View>
               </View>
+              <Text style={styles.userAddress}>Taille: {props.taille}</Text>
+              <Text style={styles.userAddress}>Couleur: {props.couleur}</Text>
+              <Text style={styles.userAddress}>Poil: {props.poil}</Text>
+              <Text style={styles.userAddress}>Sexe: {props.sexe}</Text>
+              <Text style={styles.userAddress}>Castré: {props.castré}</Text>
+              <Text style={styles.userAddress}>Tatouage: {props.tatouage}</Text>
+              <Text style={styles.userAddress}>Puce: {props.puce}</Text>
+              <Text style={styles.userAddress}>Description: {props.description}</Text>
+              {/* affiche d'autre information si besoin */}
             </View>
-        <Text style={styles.userAddress}>Taille: {props.taille}</Text>
-        <Text style={styles.userAddress}>Couleur: {props.couleur}</Text>
-        <Text style={styles.userAddress}>Poil: {props.poil}</Text>
-        <Text style={styles.userAddress}>Sexe: {props.sexe}</Text>
-        <Text style={styles.userAddress}>Castré: {props.castré}</Text>
-        <Text style={styles.userAddress}>Tatouage: {props.tatouage}</Text>
-        <Text style={styles.userAddress}>Puce: {props.puce}</Text>
-        <Text style={styles.userAddress}>Description: {props.description}</Text>
-          {/* affiche d'autre information si besoin */}
-        </View>
-      </ScrollView>
-      ) : (
-        <ActivityIndicator size="large" color="blue" />
-      )}
-    </View>
+          </ScrollView>
+        ) : (
+          <ActivityIndicator size="large" color="blue" />
+        )}
+      </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 27,
+    
   },
   animalDataContainer: {
     flexDirection: 'column',
@@ -63,7 +65,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     minWidth: '100%',
-    backgroundColor: '#fed0a6'
+    backgroundColor: '#fed0a6',
+   
   },
   userName: {
     fontSize: 18,

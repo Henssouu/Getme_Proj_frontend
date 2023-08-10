@@ -144,14 +144,10 @@ const handleAddNotice = () => {
 };
 
 const handleSearchNoticesInArea = () => {
-
-
-  
-  
-  const minLatitude = currentPosition.latitude - 0.5;
-  const maxLatitude = currentPosition.latitude + 0.5;
-  const minLongitude = currentPosition.longitude - 0.5;
-  const maxLongitude = currentPosition.longitude + 0.5;
+  const minLatitude = currentPosition.latitude - 0.05;
+  const maxLatitude = currentPosition.latitude + 0.05;
+  const minLongitude = currentPosition.longitude - 0.05;
+  const maxLongitude = currentPosition.longitude + 0.05;
 
   fetch(
     `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices/all/${user.token}?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`
@@ -407,23 +403,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add background color to make it semi-transparent
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
   },
   modalContent: {
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 10,
     alignItems: 'center',
-    width: '80%', // Adjust the width as per your requirement
-    // You can add more styles if needed to align the content properly
+    width: '80%', 
   },
   modalInput: {
     borderBottomColor: '#ec6e5b',
     borderBottomWidth: 1,
     fontSize: 16,
-    color: 'black', // Add a dark text color
-    backgroundColor: '#ffffff', // Add a light background color
-    padding: 5, // Add some padding to improve readability
+    color: 'black', 
+    backgroundColor: '#ffffff', 
+    padding: 5, 
   },
   modalView: {
     backgroundColor: 'white',

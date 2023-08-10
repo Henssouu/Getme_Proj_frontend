@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Modal,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 // import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
@@ -135,20 +136,13 @@ console.log('ok',image);
 }else{
   setAnimalProfilError(true);        
 }
-
-
    
   })
 }
 
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}>
-      
-      <View style={styles.containerWrapper}>
-      
+    <ScrollView style={{flex:1}} contentContainerStyle={{justifyContent:'center', alignItems: 'center'}}>
         <View style={styles.titleContainer}>
         <Text style={styles.title}>Entrer le profil de votre animal</Text>
         </View>
@@ -409,8 +403,7 @@ console.log('ok',image);
           </TouchableOpacity>
         </View>
       </Modal>
-      </View>
-    </KeyboardAvoidingView>
+      </ScrollView>
   );
 };
 
@@ -420,6 +413,7 @@ const styles = StyleSheet.create({
   },
   containerWrapper: {
     flex: 1,
+
   },
   container: {
     flex: 1,
