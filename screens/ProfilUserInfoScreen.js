@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Image,  ImageBackground } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const ProfilUserInfoScreen = () => {
