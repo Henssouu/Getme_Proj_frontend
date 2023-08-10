@@ -26,7 +26,7 @@ function SignInScreen() {
     fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: signInEmail, password: signInPassword }),
+      body: JSON.stringify({ email: signInEmail, password: signInPassword, }),
     })
       .then(response => response.json())
       .then(data => {

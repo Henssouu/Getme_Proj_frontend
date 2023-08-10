@@ -1,10 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
-import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNotice, login } from '../reducers/user'; 
 
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import * as ImagePicker from 'expo-image-picker';
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faTrashCan  } from '@fortawesome/free-solid-svg-icons';
 
 export default function MapScreen() {
   const dispatch = useDispatch();
@@ -75,14 +79,27 @@ export default function MapScreen() {
 const handleAddNotice = () => {
   if (!tempCoordinates || !noticeType || !noticeDescription || !noticeReward) {
     // Validation pour les champs requis
-    console.log('veuillez remplir tous les champs.');
+    console.log('Veuillez remplir tous les champs.');
     return;
   }
+
+   
+
+ 
+
+  const formData = new FormData();
+  console.log("lolilol", noticePhoto)
+    formData.append('photoFromFront', {
+      uri: noticePhoto,
+      name: 'photo.jpg',
+      type: 'image/jpeg',
+    });
+
 
   // Create a new wanted notice object with the form data
   const newNotice = {
     type: noticeType,
-    photo: noticePhoto,
+    wantedNoticePhoto: noticePhoto,
     taille: noticeTaille,
     couleur: noticeCouleur,
     poil: noticePoil,
@@ -100,6 +117,13 @@ const handleAddNotice = () => {
     body: JSON.stringify({ token: user.token, ...newNotice }),
   })
     .then(response => {
+      fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/wantedNoticeImage/upload`, {
+          method: 'POST',
+          body: formData,
+         }).then((response) => response.json())
+          .then((data) => {
+           setNoticePhoto(data.url);
+         });
       if (!response.ok) {
         // gère le cas ou la réponse indique une érreur
         return response.json().then(errorResponse => {
@@ -119,6 +143,10 @@ const handleAddNotice = () => {
 };
 
 const handleSearchNoticesInArea = () => {
+
+
+  
+  
   const minLatitude = currentPosition.latitude - 0.5;
   const maxLatitude = currentPosition.latitude + 0.5;
   const minLongitude = currentPosition.longitude - 0.5;
@@ -147,21 +175,41 @@ const handleSearchNoticesInArea = () => {
 
   // contenu de la modal pour ajouter une nvlle notice
   const renderModalContent = () => {
+
+    const addImage = async() => {
+      let _image = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4,3],
+          quality: 1,
+        });
+        console.log('test',_image);
+        setNoticePhoto(_image.uri);
+         
+    
+    };
+  
     return (
       <View style={styles.modalContent}>
         <Text style={styles.modalTitle}>Ajouter un avis de recherche</Text>
+        <View style={styles.containerImage}>
+                {
+                    noticePhoto  && <Image source={{ uri: noticePhoto }} style={{ width: 200, height: 200 }} />
+                }
+                    <View style={styles.uploadBtnContainer}>
+                        <TouchableOpacity onPress={addImage} style={styles.uploadBtn} >
+                            <Text>{noticePhoto ? 'Edit' : 'Ajouter'} Image</Text>
+                            <AntDesign name="camera" size={20} color="black" />
+                        </TouchableOpacity>
+      </View>
+      </View>
         <TextInput
           style={styles.modalInput}
           placeholder="Type"
           value={noticeType}
           onChangeText={setNoticeType}
         />
-        <TextInput
-          style={styles.modalInput}
-          placeholder="Photo"
-          value={noticePhoto}
-          onChangeText={setNoticePhoto}
-        />
+       
         <TextInput
           style={styles.modalInput}
           placeholder="Taille"
@@ -212,23 +260,34 @@ const handleSearchNoticesInArea = () => {
 
   // contenu de la modal pour afficher une notice
   const renderNoticeModalContent = () => {
+    
     return (
       <View style={styles.modalContent}>
         {selectedNotice && (
           <View>
-            <Text style={styles.modalTitle}>{selectedNotice.type}</Text>
-            <Text>Photo: {selectedNotice.photo}</Text>
-            <Text>Taille: {selectedNotice.taille}</Text>
-            <Text>Couleur: {selectedNotice.couleur}</Text>
-            <Text>Poil: {selectedNotice.poil}</Text>
-            <Text>Sexe: {selectedNotice.sexe}</Text>
-            <Text>Description: {selectedNotice.description}</Text>
-            <Text>Reward: {selectedNotice.reward}</Text>
+            <View style={styles.fatrash} >
+              <FontAwesomeIcon icon={faTrashCan} />
+            </View>
+              <View style={styles.titre}>
+                <Text style={styles.textTitre}>Avis de recherche posté par : @{user.pseudo}</Text>
+              </View>
+                <View style={styles.imagePosition}>
+                  <Image style={styles.images} source={{uri: selectedNotice.wantedNoticePhoto}}></Image>
+                </View>
+                <View style={styles.descriptionPosition}>
+                  <Text style={styles.modalTitle}>{selectedNotice.type}</Text>
+                  <Text>Taille: {selectedNotice.taille}</Text>
+                  <Text>Couleur: {selectedNotice.couleur}</Text>
+                  <Text>Poil: {selectedNotice.poil}</Text>
+                  <Text>Sexe: {selectedNotice.sexe}</Text>
+                  <Text>Description: {selectedNotice.description}</Text>
+                  <Text>Récompense: {selectedNotice.reward}</Text>
+               </View>
           </View>
         )}
-        <TouchableOpacity style={styles.cancelButton} onPress={handleClose}>
-          <Text style={styles.cancelButtonTitle}>Close</Text>
-        </TouchableOpacity>
+        <Pressable style={styles.fermerBoutton} onPress={handleClose}>
+          <Text style={styles.fermerBouttonText}>Fermer</Text>
+        </Pressable>
       </View>
     );
   };
@@ -242,7 +301,7 @@ const handleSearchNoticesInArea = () => {
     setSelectedNotice(null);
   };
 
-  const markers = user.wantedNotice.map((data, i) => {
+  const markers = user?.wantedNotice?.map((data, i) => {
     return (
       <Marker
         key={i}
@@ -253,7 +312,7 @@ const handleSearchNoticesInArea = () => {
     );
   });
 
-  const wantedRadiusMarkers = wantedNotices.map((data, i) => {
+  const wantedRadiusMarkers = wantedNotices?.map((data, i) => {
     return (
       <Marker
         key={i}
@@ -351,7 +410,7 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 30,
+    padding: 10,
     alignItems: 'center',
     width: '80%', // Adjust the width as per your requirement
     // You can add more styles if needed to align the content properly
@@ -367,8 +426,6 @@ const styles = StyleSheet.create({
   modalView: {
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 30,
-    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -417,4 +474,79 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  containerImage:{
+    elevation:2,
+    height:200,
+    width:200,
+    backgroundColor:'#efefef',
+    position:'relative',
+    borderRadius:999,
+    overflow:'hidden',
+},
+uploadBtnContainer:{
+    opacity:0.7,
+    position:'absolute',
+    right:0,
+    bottom:0,
+    backgroundColor:'lightgrey',
+    width:'100%',
+    height:'25%',
+},
+uploadBtn:{
+    display:'flex',
+    alignItems:"center",
+    justifyContent:'center'
+},
+images: {
+  width: 300,
+  height: 250,
+
+},
+fatrash: {
+  flexDirection: 'row',
+  alignItems: 'start',
+  justifyContent: 'flex-end',
+  paddingBottom: 25,
+},
+titre: {
+  marginLeft: 25,
+  marginRight: 25,
+  flexDirection: 'row',
+  textAlign: 'center',
+  marginBottom: 25,
+
+},
+textTitre: {
+  fontSize: 16,
+fontWeight: 'bold',
+},
+imagePosition: {
+  flexDirection: 'row',
+  justifyContent: 'center',
+},
+descriptionPosition: {
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: 25,
+},
+fermerBoutton: {
+  backgroundColor: "#fec48d",
+  paddingVertical: 12,
+  paddingHorizontal: 40,
+  borderWidth: 1,
+  borderRadius: 15,
+  borderColor: "white",
+  marginTop: 20,
+  marginBottom: 10,
+  borderColor: "white",
+  borderWidth: 1,
+},
+fermerBouttonText: {
+  color: "white",
+  fontSize: 16,
+  textAlign: "center",
+}
+
+
 });

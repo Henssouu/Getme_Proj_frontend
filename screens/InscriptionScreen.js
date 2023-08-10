@@ -104,8 +104,8 @@ function InscriptionScreen(props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "whitesmoke",
-    opacity: 8,
-    flex: 1,
+    opacity: 1,
+    flexDirection: 'column',
     justifyContent: "center",
     alignItems: "center",
     padding: 20,

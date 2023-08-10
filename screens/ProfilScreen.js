@@ -6,7 +6,7 @@ import ProfilUserInfoScreen from './ProfilUserInfoScreen';
 
 const ProfilScreen = () => {
   const user = useSelector((state) => state.user.value);
-
+console.log("user", user)
   const animal = user.animal.map((data, i) => {
     return <ProfilUserAnimalScreen {...data} key={i} />;
   })

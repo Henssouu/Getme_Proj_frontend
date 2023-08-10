@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
   images: {
     width: 145,
     height: 150,
-    // borderRadius: '50%',
-    // marginBottom: '15%',
+    borderRadius: 50,
+    marginBottom: '15%',
   },
   userPseudo: {
     color: 'rgb(114, 131, 148)',
