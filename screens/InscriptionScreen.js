@@ -126,7 +126,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   inputContainer: {
-    width: "80%",
+    width: "90%",
+    height: 150,
+    
     // borderColor: "#ccc",
     // borderWidth: 1,
     // borderRadius: 5,
@@ -139,6 +141,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 5,
+    marginBottom: 15,
+    
   },
   buttonText: {
     color: "white",

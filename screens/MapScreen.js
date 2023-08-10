@@ -79,7 +79,8 @@ export default function MapScreen() {
 const handleAddNotice = () => {
   if (!tempCoordinates || !noticeType || !noticeDescription || !noticeReward) {
     // Validation pour les champs requis
-    console.log('Veuillez remplir tous les champs.');
+ 
+    
     return;
   }
 
@@ -242,7 +243,7 @@ const handleSearchNoticesInArea = () => {
         />
         <TextInput
           style={styles.modalInput}
-          placeholder="Reward"
+          placeholder="Récompense"
           value={noticeReward}
           onChangeText={setNoticeReward}
         />
@@ -298,7 +299,8 @@ const handleSearchNoticesInArea = () => {
   };
 
   const handleClose = () => {
-    setSelectedNotice(null);
+    setSelectedNotice('null');
+
   };
 
   const markers = user?.wantedNotice?.map((data, i) => {
