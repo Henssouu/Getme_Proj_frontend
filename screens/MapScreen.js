@@ -295,7 +295,7 @@ const handleSearchNoticesInArea = () => {
   };
 
   const handleClose = () => {
-    setSelectedNotice('null');
+    setSelectedNotice(null);
 
   };
 
