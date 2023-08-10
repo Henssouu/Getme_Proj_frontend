@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, ImageBackground, Image } from 'react-native';
 import InscriptionScreen from '../screens/InscriptionScreen';
 import { login } from '../reducers/user';
 
@@ -43,19 +43,15 @@ function SignInScreen() {
       });
   }
 
-  const colors = ["red", "yellow", "blue", "black"];
-  const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
   return (
     <ImageBackground source={require('../assets/background.jpg')} style={styles.background}>
       <View style={styles.container}>
         <View style={styles.header}>
-        <View style={styles.headerTextWrapper}>
-          <Text style={[styles.firstTitle, { color: randomColor }]}>GET ME</Text>
-          {/* <View style={styles.space} /> */}
-        <Text style={[styles.title, { color: randomColor, marginTop: 20 }]}>Connexion</Text>
+        <Image style={styles.logo} source={require('../assets/logo-getme.png')}/>
+          <Text style={styles.firstTitle}>GET ME</Text>
         </View>
-        </View>
+        <View style={styles.positionInput}>
         <TextInput
           style={styles.input}
           keyboardType='email-address'
@@ -73,18 +69,19 @@ function SignInScreen() {
           //   récupère la value depuis le state
           onChangeText={(value) => setSignInPassword(value)} value={signInPassword}
         />
-
+        
         {userError && <Text style={styles.error}>Adresse email ou mot de passe incorrect</Text> }
         <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-          <Text style={styles.buttonText}>Sign In</Text>
+          <Text style={styles.buttonText}>Connexion</Text>
         </TouchableOpacity>
 
         {/* SignUp Btn */}
         <TouchableOpacity style={styles.signUpButtonContainer}>
           <Text style={styles.signUpButtonText} onPress={handleSignUp}>
-            Sign Up
+            Créer un compte
           </Text>
         </TouchableOpacity>
+        </View>
 
         {/* SignUp Modal */}
         <Modal visible={isSignUpModalVisible} animationType="slide" onRequestClose={handleSignUpClose}>
@@ -111,9 +108,7 @@ function SignInScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
+
   },
   background: {
     flex: 1,
@@ -121,28 +116,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    flex: 1,
-    // width: "100%",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 17,
-    paddingBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: '10%',
+    marginBottom: '3%',
+    paddingRight: '8%',
+    paddingLeft: '8%',
     backgroundColor: "rgba(0, 0, 0, 0.6)", 
+    height: '18%',
   },
-  headerTextWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
+
   firstTitle: {
-    flex: 1,
     fontSize: 26,
     fontWeight: "bold",
     color: "#FFF",
-    marginTop:20,
+
+
   },
   title: {
     flex: 1,
@@ -154,18 +144,20 @@ const styles = StyleSheet.create({
   // //   width: '100%', 
   // },
   input: {
-    width: "100%",
+    width: "95%",
     height: 40,
     borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 5,
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
     paddingHorizontal: 10,
     marginBottom: 10,
-    color: "black",
+    color: "#FFF",
+   
   },
   button: {
-    backgroundColor: "transparent",
-    borderColor: "#FFF",
+    backgroundColor: "#fec48d",
+    borderColor: "white",
     borderWidth: 1,
     paddingVertical: 12,
     paddingHorizontal: 40,
@@ -234,6 +226,18 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: 'red',
   },
+  logo: {
+    width: 110,
+    height: 110,
+  },
+  positionInput: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    
+
+  }
 });
 
 export default SignInScreen;
