@@ -192,7 +192,6 @@ const styles = StyleSheet.create({
     paddingLeft: '8%',
     paddingRight: '8%',
     paddingTop: '2%',
-   borderRadius: 8,
     height: '100%',
   },
   postInput: {

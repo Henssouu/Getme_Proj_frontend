@@ -13,7 +13,7 @@ const initialState = {
     latitude:null,
     animal: [],
     animalPhoto: null,
-   
+    wantedNoticePhoto: null,
     wantedNotice: [],
   },
 };
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      const { token, email, nom, prenom, pseudo, adresse,photo,  animal, wantedNotice,longitude,latitude } = action.payload; 
+      const { token, email, nom, prenom, pseudo, adresse,photo,  animal, wantedNotice,longitude,latitude, wantedNoticePhoto } = action.payload; 
       state.value.token = token;
       state.value.email = email;
       state.value.nom = nom;
@@ -33,8 +33,9 @@ export const userSlice = createSlice({
       state.value.longitude=longitude;
       state.value.adresse = adresse;
       state.value.photo = photo;
-      state.value.animal = animal || [];
-      state.value.wantedNotice = wantedNotice || []; 
+      state.value.animal = animal;
+      state.value.wantedNotice = wantedNotice; 
+      state.value.wantedNoticePhoto = wantedNoticePhoto;
     },
     logout: (state) => {
       state.value.token = '';
@@ -46,6 +47,7 @@ export const userSlice = createSlice({
       state.value.photo = null;
       state.value.animal = [];
       state.value.wantedNotice = []; 
+      state.value.wantedNoticePhoto = null;
     },
     addAnimal: (state, action) => {
       state.value.animal.push(action.payload.animal);
@@ -54,8 +56,11 @@ export const userSlice = createSlice({
   addPhoto: (state, action) => {
     state.value.photo = action.payload.photo;
   },
-  addAnimalPhoto: (state, action) =>{
+  addAnimalPhoto: (state, action) => {
     state.value.animalPhoto = action.payload.animalPhoto
+  },
+  addWantedNoticePhoto: (state, action) => {
+     state.value.wantedNoticePhoto = action.payload.wantedNoticePhoto
   }
 }
 });

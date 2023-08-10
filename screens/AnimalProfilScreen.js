@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 // import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
-import { addAnimal, addAnimalPhoto } from "../reducers/user";
+import { addAnimal } from "../reducers/user";
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as ImagePicker from 'expo-image-picker';

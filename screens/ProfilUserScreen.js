@@ -91,7 +91,9 @@ useEffect(() => {
           .then((data) => {
            setImage(data.url);
          });
+
         if (data.result) {
+          
           dispatch(login({token: user.token, email: user.email, nom: nomUser, prenom: prenomUser,longitude:user.longitude,latitude:user.latitude, pseudo: pseudo, adresse: adresse, photo: image, animal: []}));
           setNomUser('');
           setPrenomUser('');
@@ -104,7 +106,7 @@ useEffect(() => {
             navigation.navigate("AnimalProfilScreen");
           } else {
             //passe au screen "HomeScreen"
-            navigation.navigate("HomeScreen");
+            navigation.navigate("TabNavigator");
           }
         
         } else {
