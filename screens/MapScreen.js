@@ -77,7 +77,17 @@ export default function MapScreen() {
 
   // Function pour ajouter une nvelle notice
 const handleAddNotice = () => {
+  setNoticeType('');
+  setNoticeTaille('');
+  setNoticeCouleur('');
+  setNoticePoil('');
+  setNoticePhoto('');
+  setNoticeSexe('');
+  setNoticeDescription('');
+  setNoticeReward('');
+  
   if (!tempCoordinates || !noticeType || !noticeDescription || !noticeReward) {
+    
     // Validation pour les champs requis
  
     
@@ -253,7 +263,7 @@ const handleSearchNoticesInArea = () => {
     );
   };
   
-  
+  console.log(selectedNotice);
 
   // contenu de la modal pour afficher une notice
   const renderNoticeModalContent = () => {
@@ -266,7 +276,7 @@ const handleSearchNoticesInArea = () => {
               <FontAwesomeIcon icon={faTrashCan} />
             </View>
               <View style={styles.titre}>
-                <Text style={styles.textTitre}>Avis de recherche posté par : @{user.pseudo}</Text>
+                <Text style={styles.textTitre}>Avis de recherche posté par : @{selectedNotice.author?.pseudo}</Text>
               </View>
                 <View style={styles.imagePosition}>
                   <Image style={styles.images} source={{uri: selectedNotice.wantedNoticePhoto}}></Image>
