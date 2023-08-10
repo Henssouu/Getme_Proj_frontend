@@ -144,10 +144,10 @@ const handleAddNotice = () => {
 };
 
 const handleSearchNoticesInArea = () => {
-  const minLatitude = currentPosition.latitude - 0.05;
-  const maxLatitude = currentPosition.latitude + 0.05;
-  const minLongitude = currentPosition.longitude - 0.05;
-  const maxLongitude = currentPosition.longitude + 0.05;
+  const minLatitude = currentPosition.latitude - 0.5;
+  const maxLatitude = currentPosition.latitude + 0.5;
+  const minLongitude = currentPosition.longitude - 0.5;
+  const maxLongitude = currentPosition.longitude + 0.5;
 
   fetch(
     `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices/all/${user.token}?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`
