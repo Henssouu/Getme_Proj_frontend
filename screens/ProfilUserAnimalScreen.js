@@ -24,14 +24,14 @@ const ProfilUserAnimalScreen = (props) => {
                   <Text style={styles.userPseudo}>{props.type}</Text>
                 </View>
               </View>
-              <Text style={styles.userAddress}>Taille: {props.taille}</Text>
-              <Text style={styles.userAddress}>Couleur: {props.couleur}</Text>
-              <Text style={styles.userAddress}>Poil: {props.poil}</Text>
-              <Text style={styles.userAddress}>Sexe: {props.sexe}</Text>
-              <Text style={styles.userAddress}>Castré: {props.castré}</Text>
-              <Text style={styles.userAddress}>Tatouage: {props.tatouage}</Text>
-              <Text style={styles.userAddress}>Puce: {props.puce}</Text>
-              <Text style={styles.userAddress}>Description: {props.description}</Text>
+              <Text style={styles.styleText}>Taille: {props.taille}</Text>
+              <Text style={styles.styleText}>Couleur: {props.couleur}</Text>
+              <Text style={styles.styleText}>Poil: {props.poil}</Text>
+              <Text style={styles.styleText}>Sexe: {props.sexe}</Text>
+              <Text style={styles.styleText}>Castré: {props.castré}</Text>
+              <Text style={styles.styleText}>Tatouage: {props.tatouage}</Text>
+              <Text style={styles.styleText}>Puce: {props.puce}</Text>
+              <Text style={styles.styleText}>Description: {props.description}</Text>
               {/* affiche d'autre information si besoin */}
             </View>
           </ScrollView>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
   },
-  userAddress: {
+  styleText: {
     fontSize: 16,
     marginBottom: 5,
   },
@@ -89,14 +89,14 @@ const styles = StyleSheet.create({
   },
   position: {
     flexDirection: 'row',
-    marginBottom: '15%',
+    marginBottom: 8,
     alignItems: 'center',
     justifyContent: 'flex-start',
     minHeight: '30%',
   },
   textPosition: {
     flexDirection: 'column',
-    marginLeft: '10%',
+    marginLeft: 15,
 
   },
   userPseudo: {

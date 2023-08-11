@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Pressable, Modal, Image } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faTrashCan, faHeart  } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faPaw  } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { likePost, deletePost } from '../reducers/post';
 import moment from 'moment';
@@ -57,8 +57,8 @@ function PostScreen (props) {
     
 <View style={styles.iconPosition}>
 <View style={styles.likes}>
-      <Pressable onPress={() => handleLike()}><FontAwesomeIcon icon={faHeart}  style={likeStyle} /></Pressable>
-      <Text>{props.likes.length}</Text>
+      <Pressable onPress={() => handleLike()}><FontAwesomeIcon icon={faPaw}  style={likeStyle} /></Pressable>
+      <Text style={styles.paw}>  {props.likes.length}</Text>
 </View>
       {props.author.pseudo === user.pseudo && <Pressable onPress={() => handleDelete()}><FontAwesomeIcon icon={faTrashCan}  style={styles.delete} /></Pressable>}
       </View>
@@ -122,7 +122,8 @@ container: {
       name: {
         fontSize: 16,
         fontWeight: 'bold',
-      }
+      },
+   
       
 
 
