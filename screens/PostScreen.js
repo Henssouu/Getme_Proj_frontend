@@ -39,7 +39,7 @@ function PostScreen (props) {
   console.log('props', props)
   console.log(props.likes.some(e => e.pseudo === user.pseudo));
   if (props.likes.some(e => e.pseudo === user.pseudo)) {
-    likeStyle = { 'color': '#ec6e5b' };
+    likeStyle = { 'color': '#fec48d'};
   }
 
   return (
@@ -76,7 +76,7 @@ container: {
       
       delete: {
         marginLeft: 10,
-        color: 'grey',
+        color: "rgba(0, 0, 0, 0.6)",
       },
   
       
@@ -88,6 +88,8 @@ container: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
+        paddingTop: 20
+        ,
       }, 
       likes: {
         flex: 1,
@@ -98,7 +100,7 @@ container: {
       images: {
         width: 100,
         height: 100,
-        borderRadius: 15,
+        borderRadius: 50,
       },
       position: {
         flex: 1,
