@@ -78,6 +78,7 @@ console.log('ok')
         <Pressable onPress={handleProfil}>
       <Image style={styles.images} source={{uri: user.photo}}></Image>
       </Pressable>
+      <Image style={styles.logo} source={require('../assets/logo-getme.png')}/>
       <Pressable onPress={handleLogout} style={styles.logoutButton}>
         <FontAwesomeIcon icon={faRightFromBracket} size={24} color="white" />
         
@@ -117,7 +118,7 @@ console.log('ok')
               value={newPost}
             />
            <View style={styles.contentCompteur}>
-            <Text>{newPost.length}/280</Text>
+            <Text style={styles.styleCompteur}>{newPost.length}/280</Text>
           </View>
           </View>
        
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 20,
+    paddingTop: 22,
     
  
   },
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
     height: '20%',
   },
   cancelButton: {
-    backgroundColor: 'gray',
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
     padding: 12,
     borderRadius: 8,
     flex: 1,
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   sendButton: {
-    backgroundColor: '#1DA1F2',
+    backgroundColor: "#fec48d",
     padding: 12,
     borderRadius: 8,
     flex: 1,
@@ -236,6 +237,7 @@ const styles = StyleSheet.create({
   },
   contentCompteur: {
     flex: 1,
+    
   
   },
   images: {
@@ -244,6 +246,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginTop: 10,
   },
+  logo: {
+    width: 48,
+    height: 48,
+    marginTop: 10,
+  },
+  styleCompteur: {
+    fontWeight: 'bold',
+  }
 });
 
 export default HomeScreen;

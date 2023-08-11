@@ -11,6 +11,7 @@ const ProfilUserInfoScreen = () => {
     <View style={styles.container}>
       {userData ? (
         <View style={styles.userDataContainer}>
+           <Text style={styles.profilText}>Votre profil</Text>
           <View style={styles.tailleImage}>
           <Image style={styles.images} source={{uri: userData.photo}} ></Image>
           </View>
@@ -61,14 +62,21 @@ const styles = StyleSheet.create({
     marginTop: '15%',
   },
   images: {
-    width: 145,
-    height: 150,
-    borderRadius: 50,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
     marginBottom: 15,
   },
   userPseudo: {
-    color: 'rgb(114, 131, 148)',
+    color: "rgba(0, 0, 0, 0.6)",
+    fontWeight: 'bold',
   },
+  profilText: {
+    marginBottom: 20,
+    fontSize: 25,
+    fontWeight: 'bold',
+
+  }
 
 });
 

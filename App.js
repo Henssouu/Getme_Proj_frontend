@@ -61,7 +61,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator>
     <Drawer.Screen name="Acceuil" component={HomeScreen} options={{ headerShown: false }}/>
-    <Drawer.Screen name="Profile" component={ProfilScreen} options={{ headerShown: false }} />
+    <Drawer.Screen name="Profil" component={ProfilScreen} options={{ headerShown: true }} />
   </Drawer.Navigator>
   )
 }

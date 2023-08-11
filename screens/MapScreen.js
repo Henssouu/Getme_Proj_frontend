@@ -367,7 +367,7 @@ const handleSearchNoticesInArea = () => {
           style={styles.searchButton}
           onPress={handleSearchNoticesInArea}
         >
-          <Text style={styles.searchButtonText}>Poster un avis de recherche </Text>
+          <Text style={styles.searchButtonText}>Afficher tous les avis de recherche </Text>
         </TouchableOpacity>
       </View>      
       {/* <TouchableOpacity

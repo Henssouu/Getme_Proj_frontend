@@ -16,11 +16,12 @@ const ProfilUserAnimalScreen = (props) => {
         {user ? (
           <ScrollView style={{flex:1}}>
             <View style={styles.animalDataContainer}>
+            <Text style={styles.profilText}>Le profil de votre animal</Text>
               <View style={styles.position}>
                 <Image style={styles.images} source={{ uri: props.animalPhoto }}></Image>
                 <View style={styles.textPosition}>
                   <Text style={styles.userName}>{props.nom}</Text>
-                  <Text style={styles.userPseudo}>Type: {props.type}</Text>
+                  <Text style={styles.userPseudo}>{props.type}</Text>
                 </View>
               </View>
               <Text style={styles.userAddress}>Taille: {props.taille}</Text>
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
   images: {
   width: 100,
   height: 100,
+  borderRadius: 50,
   },
   position: {
     flexDirection: 'row',
@@ -95,6 +97,16 @@ const styles = StyleSheet.create({
   textPosition: {
     flexDirection: 'column',
     marginLeft: '10%',
+
+  },
+  userPseudo: {
+    fontWeight: 'bold',
+  },
+  profilText: {
+    marginTop: 30,
+   
+    fontSize: 20,
+    fontWeight: 'bold',
 
   }
 });
