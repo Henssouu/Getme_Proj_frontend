@@ -54,6 +54,30 @@ const MessageScreen = () => {
       });
   };
 
+
+  const handleReply = (messageId) => {
+    // Send a reply for the specified message
+    fetch(
+      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/messages/reply-message/${messageId}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sender: user._id, content: replyContent }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // Refresh the messages after sending the reply
+        setMessages(data.messages);
+      })
+      .catch((error) => {
+        console.error("Error sending reply:", error);
+      });
+  };
+
+
+
+
   const renderItem = ({ item }) => {
     return (
       <View style={styles.messageContainer}>
