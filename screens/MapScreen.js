@@ -160,7 +160,7 @@ const handleSearchNoticesInArea = () => {
   const maxLongitude = currentPosition.longitude + 0.5;
 
   fetch(
-    `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices/all/${user.token}?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`
+    `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices/all/${user.token}`
   )
     .then(response => {
       if (!response.ok) {
