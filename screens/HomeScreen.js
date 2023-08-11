@@ -21,6 +21,7 @@ const [newPost, setNewPost] = useState('');
 
 
 const handleProfil = () => {
+  navigation.openDrawer();
 console.log('ok')
 }
 
@@ -74,8 +75,9 @@ console.log('ok')
     <View style={styles.container}>
       
       <View style={styles.icon} >
+        <Pressable onPress={handleProfil}>
       <Image style={styles.images} source={{uri: user.photo}}></Image>
-
+      </Pressable>
       <Pressable onPress={handleLogout} style={styles.logoutButton}>
         <FontAwesomeIcon icon={faRightFromBracket} size={24} color="white" />
         
