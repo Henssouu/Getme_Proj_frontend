@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    minHeight: '100%',
+    minHeight: '93%',
   },
   userName: {
     fontSize: 18,
