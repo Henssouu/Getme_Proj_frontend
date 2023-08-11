@@ -82,6 +82,7 @@ container: {
       
       greyText: {
         color: 'rgb(114, 131, 148)',
+        fontWeight: 'bold',
       },
       iconPosition: {
         flex: 1,
@@ -117,6 +118,10 @@ container: {
       },
       userInfo: {
         marginBottom: '10%',
+      },
+      name: {
+        fontSize: 16,
+        fontWeight: 'bold',
       }
       
 

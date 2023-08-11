@@ -61,6 +61,9 @@ export const userSlice = createSlice({
   },
   addWantedNoticePhoto: (state, action) => {
      state.value.wantedNoticePhoto = action.payload.wantedNoticePhoto
+  },
+  addNewMessages: (state, action) => {
+    state.value.messages = action.payload.messages
   }
 }
 });

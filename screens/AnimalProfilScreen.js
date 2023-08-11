@@ -142,7 +142,12 @@ console.log('ok',image);
 
 
   return (
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+    style={styles.container}
+  >
     <ScrollView style={{flex:1}} contentContainerStyle={{justifyContent:'center', alignItems: 'center'}}>
+   
         <View style={styles.titleContainer}>
         <Text style={styles.title}>Entrer le profil de votre animal</Text>
         </View>
@@ -202,7 +207,7 @@ console.log('ok',image);
                   toggleModal(castréModalVisible, setCastréModalVisible)
                 }
               >
-                <Text>{selectedCastré || "Castré :"}</Text>
+                <Text>{selectedCastré || "Strérilisé :"}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -404,6 +409,7 @@ console.log('ok',image);
         </View>
       </Modal>
       </ScrollView>
+      </KeyboardAvoidingView>
   );
 };
 
@@ -424,13 +430,13 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     paddingHorizontal: 20,
-    paddingTop: 30,
+    paddingTop: 10,
     alignItems: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 5,
   },
   input: {
     width: "100%",
@@ -440,7 +446,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom: 2,
+    marginBottom: 5,
     marginTop: 8.5,
     justifyContent: 'center',
   },
@@ -448,7 +454,7 @@ const styles = StyleSheet.create({
     width: "80%",
     borderColor: "#ccc",
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 30,
     paddingHorizontal: 10,
     marginBottom: 20,
     marginTop: 10,
@@ -457,7 +463,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 160,
-    backgroundColor: "blue",
+    backgroundColor: "#fec48d",
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 5,

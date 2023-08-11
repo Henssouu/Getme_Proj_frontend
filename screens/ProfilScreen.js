@@ -17,6 +17,7 @@ console.log("user", user)
       {user ? (
         <ScrollView>
           <View style={styles.userDataContainer}>
+           
           <ProfilUserInfoScreen />
           </View>
           {animal ? (
@@ -43,9 +44,9 @@ const styles = StyleSheet.create({
   },
   userDataContainer: {
     
-    paddingTop: '15%',
-    paddingLeft: '15%',
-    paddingRight: '15%',
+    
+    paddingLeft: 15,
+    paddingRight: 15,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -54,19 +55,8 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginBottom: 20,
   },
-  userName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  userPseudo: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  userAddress: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
+
+  
   animalDataContainer: {
     
     padding: 20,
@@ -79,19 +69,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     minHeight: '100%',
   },
-  animalName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  animalType: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  animalInfo: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
+  
 });
 
 export default ProfilScreen;

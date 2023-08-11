@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+    
   },
   content: {
     flex: 1,
@@ -200,6 +201,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
     width: "100%",
@@ -219,6 +221,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 20,
     marginTop: 20,
+    borderRadius: 40,
   },
   inputBlock: {
     marginBottom: 20,
@@ -239,10 +242,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   activeButton: {
-    backgroundColor: "lightblue",
+    backgroundColor: "lightgrey",
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#fec48d",
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 5,
@@ -257,6 +260,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+    textAlign: 'center',
   },
   error: {
     marginTop: 5,

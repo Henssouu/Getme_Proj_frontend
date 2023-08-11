@@ -86,10 +86,12 @@ function SignInScreen() {
         {/* SignUp Modal */}
         <Modal visible={isSignUpModalVisible} animationType="slide" onRequestClose={handleSignUpClose}>
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Inscription</Text>
+            <View style={styles.headerModal}>
+          <Image style={styles.logoInscription} source={require('../assets/logo-getme.png')}/>
+          </View>
             {<InscriptionScreen closeParentModal={handleSignUpClose} />}
             <TouchableOpacity style={styles.modalCloseButton} onPress={handleSignUpClose}>
-              <Text style={styles.modalCloseButtonText}>Close</Text>
+              <Text style={styles.modalCloseButtonText}>Fermer</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -192,7 +194,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   modalCloseButton: {
-    backgroundColor: "red",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
     paddingVertical: 12,
     paddingHorizontal: 40,
     borderRadius: 5,
@@ -235,7 +237,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     
+  },
+  logoInscription: {
 
+    width: 250,
+    height: 250,
+    marginBottom: 50,
   }
 });
 
