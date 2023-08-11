@@ -1,5 +1,5 @@
 import React, { useState, useEffect }  from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Pressable, Modal, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Pressable, Modal, ScrollView, Image } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faRightFromBracket, faCirclePlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
@@ -74,12 +74,10 @@ console.log('ok')
     <View style={styles.container}>
       
       <View style={styles.icon} >
-        <Pressable onPress={handleProfil}>
-      <FontAwesomeIcon  icon={faUser} size={24} style={styles.faUser} />
-      </Pressable>
+      <Image style={styles.images} source={{uri: user.photo}}></Image>
 
       <Pressable onPress={handleLogout} style={styles.logoutButton}>
-        <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
+        <FontAwesomeIcon icon={faRightFromBracket} size={24} color="white" />
         
         
       </Pressable>
@@ -138,7 +136,10 @@ const styles = StyleSheet.create({
 
   logoutButton: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 20,
+    
  
   },
   logoutButtonText: {
@@ -173,9 +174,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: '5%',
     paddingRight: '5%',
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     paddingVertical: '4%',
-    borderWidth: 1,
+   
 
 
   },
@@ -234,6 +235,12 @@ const styles = StyleSheet.create({
   contentCompteur: {
     flex: 1,
   
+  },
+  images: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    marginTop: 10,
   },
 });
 
