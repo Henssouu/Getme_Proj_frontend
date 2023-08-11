@@ -89,8 +89,7 @@ const handleAddNotice = () => {
   if (!tempCoordinates || !noticeType || !noticeDescription || !noticeReward) {
     
     // Validation pour les champs requis
- 
-    
+    console.log('Veuillez remplir tous les champs.');
     return;
   }
 
