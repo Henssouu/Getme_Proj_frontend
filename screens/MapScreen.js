@@ -89,8 +89,7 @@ const handleAddNotice = () => {
   if (!tempCoordinates || !noticeType || !noticeDescription || !noticeReward) {
     
     // Validation pour les champs requis
- 
-    
+    console.log('Veuillez remplir tous les champs.');
     return;
   }
 
@@ -198,7 +197,9 @@ const handleSearchNoticesInArea = () => {
   
     return (
       <View style={styles.modalContent}>
-        <Text style={styles.modalTitle}>Ajouter un avis de recherche</Text>
+        <View style={styles.modalTitrePosition}>
+        <Text style={styles.modalTitre}>Ajouter un avis de recherche</Text>
+        </View>
         <View style={styles.containerImage}>
                 {
                     noticePhoto  && <Image source={{ uri: noticePhoto }} style={{ width: 200, height: 200 }} />
@@ -253,12 +254,16 @@ const handleSearchNoticesInArea = () => {
           value={noticeReward}
           onChangeText={setNoticeReward}
         />
-        <TouchableOpacity style={styles.addButton} onPress={handleAddNotice}>
-          <Text style={styles.addButtonTitle}>Add</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => setModalVisible(false)}>
-          <Text style={styles.cancelButtonTitle}>Cancel</Text>
-        </TouchableOpacity>
+        <View style={styles.boutonModalAjouter}>
+          <Pressable style={styles.addButton} onPress={handleAddNotice}>
+          <Text style={styles.addButtonTitle}>Ajouter</Text>
+          </Pressable>
+        </View>
+        <View style={styles.boutonModalFermer}>
+          <Pressable style={styles.cancelButton} onPress={() => setModalVisible(false)}>
+          <Text style={styles.cancelButtonTitle}>Fermer</Text>
+        </Pressable>
+        </View>
       </View>
     );
   };
@@ -423,7 +428,7 @@ const styles = StyleSheet.create({
     width: '80%', 
   },
   modalInput: {
-    borderBottomColor: '#ec6e5b',
+    borderBottomColor: '#fec48d',
     borderBottomWidth: 1,
     fontSize: 16,
     color: 'black', 
@@ -553,6 +558,62 @@ fermerBouttonText: {
   color: "white",
   fontSize: 16,
   textAlign: "center",
+},
+
+addButton: {
+  margin: 10,
+  
+},
+boutonModalAjouter: {
+  backgroundColor: "#fec48d",
+  paddingVertical: 3,
+  paddingHorizontal: 30,
+  borderWidth: 1,
+  borderRadius: 15,
+  borderColor: "white",
+  marginTop: 20,
+  marginBottom: 10,
+  borderColor: "white",
+  borderWidth: 1,
+  
+
+},
+addButtonTitle: {
+  color: "white",
+  fontSize: 16,
+  textAlign: "center",
+},
+boutonModalFermer: {
+  backgroundColor: "rgba(0, 0, 0, 0.6)",
+  paddingVertical: 3,
+  paddingHorizontal: 30,
+  borderWidth: 1,
+  borderRadius: 15,
+  borderColor: "white",
+
+  marginBottom: 10,
+  borderColor: "white",
+  borderWidth: 1,
+},
+cancelButton: {
+  margin: 10,
+},
+cancelButtonTitle: {
+  color: "white",
+  fontSize: 16,
+  textAlign: "center",
+},
+modalTitrePosition: {
+  marginLeft: 25,
+  marginRight: 25,
+  flexDirection: 'row',
+  textAlign: 'center',
+  marginBottom: 25,
+},
+modalTitre: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  paddingTop: 10,
 }
 
 
