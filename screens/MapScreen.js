@@ -154,10 +154,10 @@ const handleAddNotice = () => {
 };
 
 const handleSearchNoticesInArea = () => {
-  const minLatitude = currentPosition.latitude - 0.05;
-  const maxLatitude = currentPosition.latitude + 0.05;
-  const minLongitude = currentPosition.longitude - 0.05;
-  const maxLongitude = currentPosition.longitude + 0.05;
+  const minLatitude = currentPosition.latitude - 0.5;
+  const maxLatitude = currentPosition.latitude + 0.5;
+  const minLongitude = currentPosition.longitude - 0.5;
+  const maxLongitude = currentPosition.longitude + 0.5;
 
   fetch(
     `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices/all/${user.token}?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`
@@ -253,12 +253,16 @@ const handleSearchNoticesInArea = () => {
           value={noticeReward}
           onChangeText={setNoticeReward}
         />
-        <TouchableOpacity style={styles.addButton} onPress={handleAddNotice}>
-          <Text style={styles.addButtonTitle}>Add</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => setModalVisible(false)}>
-          <Text style={styles.cancelButtonTitle}>Cancel</Text>
-        </TouchableOpacity>
+        <View style={styles.boutonModalAjouter}>
+          <Pressable style={styles.addButton} onPress={handleAddNotice}>
+          <Text style={styles.addButtonTitle}>Ajouter</Text>
+          </Pressable>
+        </View>
+        <View style={styles.boutonModalFermer}>
+          <Pressable style={styles.cancelButton} onPress={() => setModalVisible(false)}>
+          <Text style={styles.cancelButtonTitle}>Fermer</Text>
+        </Pressable>
+        </View>
       </View>
     );
   };
@@ -553,7 +557,50 @@ fermerBouttonText: {
   color: "white",
   fontSize: 16,
   textAlign: "center",
-}
+},
 
+addButton: {
+  margin: 10,
+  
+},
+boutonModalAjouter: {
+  backgroundColor: "#fec48d",
+  paddingVertical: 3,
+  paddingHorizontal: 30,
+  borderWidth: 1,
+  borderRadius: 15,
+  borderColor: "white",
+  marginTop: 20,
+  marginBottom: 10,
+  borderColor: "white",
+  borderWidth: 1,
+  
+
+},
+addButtonTitle: {
+  color: "white",
+  fontSize: 16,
+  textAlign: "center",
+},
+boutonModalFermer: {
+  backgroundColor: "rgba(0, 0, 0, 0.6)",
+  paddingVertical: 3,
+  paddingHorizontal: 30,
+  borderWidth: 1,
+  borderRadius: 15,
+  borderColor: "white",
+
+  marginBottom: 10,
+  borderColor: "white",
+  borderWidth: 1,
+},
+cancelButton: {
+  margin: 10,
+},
+cancelButtonTitle: {
+  color: "white",
+  fontSize: 16,
+  textAlign: "center",
+}
 
 });
