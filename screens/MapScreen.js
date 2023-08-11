@@ -365,7 +365,7 @@ const handleSearchNoticesInArea = () => {
           <Text style={styles.searchButtonText}>Search Notices</Text>
         </TouchableOpacity>
       </View>      
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           if (tempCoordinates) {
             // Ouvre la modal, seulement si les coordonées (tempCoordinates) sont présentes (lat, long)
@@ -377,7 +377,7 @@ const handleSearchNoticesInArea = () => {
         disabled={!tempCoordinates}
       >
         <Text style={styles.textButton}>Add Notice</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
   
       {/* Render the modal for adding a new notice */}
       <Modal visible={modalVisible} animationType="slide" transparent>
