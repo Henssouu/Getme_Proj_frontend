@@ -198,7 +198,9 @@ const handleSearchNoticesInArea = () => {
   
     return (
       <View style={styles.modalContent}>
-        <Text style={styles.modalTitle}>Ajouter un avis de recherche</Text>
+        <View style={styles.modalTitrePosition}>
+        <Text style={styles.modalTitre}>Ajouter un avis de recherche</Text>
+        </View>
         <View style={styles.containerImage}>
                 {
                     noticePhoto  && <Image source={{ uri: noticePhoto }} style={{ width: 200, height: 200 }} />
@@ -427,7 +429,7 @@ const styles = StyleSheet.create({
     width: '80%', 
   },
   modalInput: {
-    borderBottomColor: '#ec6e5b',
+    borderBottomColor: '#fec48d',
     borderBottomWidth: 1,
     fontSize: 16,
     color: 'black', 
@@ -601,6 +603,19 @@ cancelButtonTitle: {
   color: "white",
   fontSize: 16,
   textAlign: "center",
+},
+modalTitrePosition: {
+  marginLeft: 25,
+  marginRight: 25,
+  flexDirection: 'row',
+  textAlign: 'center',
+  marginBottom: 25,
+},
+modalTitre: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  paddingTop: 10,
 }
+
 
 });

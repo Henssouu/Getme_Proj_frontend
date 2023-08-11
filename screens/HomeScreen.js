@@ -156,14 +156,14 @@ const styles = StyleSheet.create({
     
   },
   plusButton: {
-    backgroundColor: 'rgba(70, 158, 180, 0.2)',
+    backgroundColor: 'white',
     borderRadius: 50,
  
     
     
   },
   faCirclePlus: {
-  color: 'rgba(70, 158, 180, 0.5)', 
+  color: "#fec48d", 
   },
   icon : {
     marginTop: '10%',
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: '5%',
     paddingRight: '5%',
-    backgroundColor: '#ec6e5b',
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
     paddingVertical: '4%',
     borderWidth: 1,
 
