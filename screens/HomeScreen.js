@@ -21,6 +21,7 @@ const [newPost, setNewPost] = useState('');
 
 
 const handleProfil = () => {
+  navigation.openDrawer();
 console.log('ok')
 }
 
@@ -75,11 +76,11 @@ console.log('ok')
       
       <View style={styles.icon} >
         <Pressable onPress={handleProfil}>
-      <FontAwesomeIcon  icon={faUser} size={24} style={styles.faUser} />
+      <FontAwesomeIcon  icon={faUser} size={24} style={styles.faUser} color="white"/>
       </Pressable>
 
       <Pressable onPress={handleLogout} style={styles.logoutButton}>
-        <FontAwesomeIcon icon={faRightFromBracket} size={24} color="black" />
+        <FontAwesomeIcon icon={faRightFromBracket} size={24} color="white" />
         
         
       </Pressable>
@@ -173,7 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: '5%',
     paddingRight: '5%',
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     paddingVertical: '4%',
     borderWidth: 1,
 

@@ -159,7 +159,7 @@ const handleSearchNoticesInArea = () => {
   const maxLongitude = currentPosition.longitude + 0.5;
 
   fetch(
-    `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices/all/${user.token}`
+    `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices/all/${user.token}?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`
   )
     .then(response => {
       if (!response.ok) {
@@ -367,7 +367,7 @@ const handleSearchNoticesInArea = () => {
           style={styles.searchButton}
           onPress={handleSearchNoticesInArea}
         >
-          <Text style={styles.searchButtonText}>Search Notices</Text>
+          <Text style={styles.searchButtonText}>Poster un avis de recherche </Text>
         </TouchableOpacity>
       </View>      
       {/* <TouchableOpacity
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   searchButton: {
-    backgroundColor: '#0000FF',
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     borderRadius: 10,
     padding: 10,
   },
