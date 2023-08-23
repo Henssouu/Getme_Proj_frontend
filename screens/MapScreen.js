@@ -36,7 +36,7 @@ export default function MapScreen() {
   // Fetch les user data quand le component mount
   const fetchUserData = async () => {
     try {
-      const response = await fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/${user.token}`);
+      const response = await fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/users/${user.token}`);
       const userData = await response.json();
       setTempCoordinates(null);
       // Dispatch the login action to update the user state with the fetched data
@@ -121,13 +121,13 @@ const handleAddNotice = () => {
   };
 
   // envoi les nvlles wanted notice data au server pour être sauvegardé dans la database.
-  fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices`, {
+  fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/api/wanted-notices`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token: user.token, ...newNotice }),
   })
     .then(response => {
-      fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/wantedNoticeImage/upload`, {
+      fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/users/wantedNoticeImage/upload`, {
           method: 'POST',
           body: formData,
          }).then((response) => response.json())
@@ -159,7 +159,7 @@ const handleSearchNoticesInArea = () => {
   const maxLongitude = currentPosition.longitude + 0.5;
 
   fetch(
-    `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/wanted-notices/all/${user.token}?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`
+    `${process.env.EXPO_PUBLIC_IP_STRING}/api/wanted-notices/all/${user.token}?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`
   )
     .then(response => {
       if (!response.ok) {

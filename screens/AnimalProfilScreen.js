@@ -101,7 +101,7 @@ console.log('ok',image);
 
 
 
-    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/animaux/newanimal`, {
+    fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/animaux/newanimal`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ token: user.token,type,nom,taille,couleur,poil,sexe,castré,tatouage,puce,description,animalPhoto: image }),
@@ -109,7 +109,7 @@ console.log('ok',image);
 			.then(data => {
         console.log('test', data)
  
-        fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/animalimage/upload`, {
+        fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/users/animalimage/upload`, {
           method: 'POST',
           body: formData,
          }).then((response) => response.json())

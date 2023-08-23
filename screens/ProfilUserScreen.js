@@ -78,13 +78,13 @@ useEffect(() => {
      
   
 
-    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/${user.token}`, {
+    fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/users/${user.token}`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({token: user.token, nom: nomUser, prenom: prenomUser, pseudo: pseudo,longitude:user.longitude,latitude:user.latitude, adresse: adresse, photo: image }),
 		}).then(response => response.json())
 			.then(data => {
-        fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users//userimage/upload`, {
+        fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/users//userimage/upload`, {
           method: 'POST',
           body: formData,
          }).then((response) => response.json())

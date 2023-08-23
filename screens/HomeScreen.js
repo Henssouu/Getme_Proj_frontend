@@ -33,7 +33,7 @@ console.log('ok')
       return;
     }
 
-    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/posts/all/${user.token}`)
+    fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/posts/all/${user.token}`)
       .then(response => response.json())
       .then(data => {
         console.log("j'ai fetché", data)
@@ -42,7 +42,7 @@ console.log('ok')
   }, []);
 
   const handleSubmit = () => {
-    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/posts`, {
+    fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/posts`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: user.token, content: newPost}),

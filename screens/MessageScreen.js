@@ -18,7 +18,7 @@ const MessageScreen = () => {
   useEffect(() => {
     // Fetch les messages de l'utilisateur loggé
     fetch(
-      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/messages/get-messages/${user.token}`
+      `${process.env.EXPO_PUBLIC_IP_STRING}/api/messages/get-messages/${user.token}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -32,7 +32,7 @@ const MessageScreen = () => {
   const handleSendMessage = () => {
     // envoi un nouveau message  au destinataire en utilisant son userId
     fetch(
-      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/messages/send-message`,
+      `${process.env.EXPO_PUBLIC_IP_STRING}/api/messages/send-message`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -58,7 +58,7 @@ const MessageScreen = () => {
   const handleReply = (messageId) => {
     // Send a reply for the specified message
     fetch(
-      `http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/api/messages/reply-message/${messageId}`,
+      `${process.env.EXPO_PUBLIC_IP_STRING}/api/messages/reply-message/${messageId}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

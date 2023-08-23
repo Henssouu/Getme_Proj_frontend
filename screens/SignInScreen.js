@@ -23,7 +23,7 @@ function SignInScreen() {
   };
 
   const handleSignIn = () => {
-    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signin`, {
+    fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/users/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: signInEmail, password: signInPassword, }),
@@ -71,7 +71,7 @@ function SignInScreen() {
         />
         
         {userError && <Text style={styles.error}>Adresse email ou mot de passe incorrect</Text> }
-        <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+        <TouchableOpacity style={styles.button} testID="button-signin" onPress={handleSignIn}>
           <Text style={styles.buttonText}>Connexion</Text>
         </TouchableOpacity>
 

@@ -45,7 +45,7 @@ function InscriptionScreen(props) {
         longitude:location.coords.longitude,
       };
 
-      const signupResponse = await fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/users/signup`, {
+      const signupResponse = await fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/users/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData,),

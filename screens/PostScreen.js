@@ -14,7 +14,7 @@ function PostScreen (props) {
 
  
   const handleLike = () => {
-    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/posts/like`, {
+    fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/posts/like`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: user.token, postId: props._id }),
@@ -25,7 +25,7 @@ function PostScreen (props) {
   };
 
   const handleDelete = () => {
-    fetch(`http://${process.env.EXPO_PUBLIC_IP_STRING}:3000/posts`, {
+    fetch(`${process.env.EXPO_PUBLIC_IP_STRING}/posts`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: user.token, postId: props._id }),
